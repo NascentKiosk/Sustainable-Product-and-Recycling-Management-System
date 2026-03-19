@@ -67,10 +67,12 @@ The system follows a layered architecture:
 
 ### Functional
 
-* Create and manage products
-* Define reusable materials
+* Create product
+* Assign materials to product
+* Define material with impact value
 * Calculate environmental impact
 * Provide recycling guidance
+* List and view products
 
 ### Non-functional
 
