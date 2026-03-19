@@ -47,6 +47,8 @@ The system follows a layered architecture:
 
 ---
 
+## Development Plan Week 1
+
 ## Git Workflow
 
 * `main` branch is protected
@@ -54,7 +56,7 @@ The system follows a layered architecture:
 * Pull Requests are required for merging
 * At least one approval is required before merge
 
-Branch naming examples:
+### Branch naming :
 
 * `feature/product-management`
 * `feature/material-model`
@@ -62,9 +64,6 @@ Branch naming examples:
 * `docs/uml-diagram`
 
 ---
-
-## Development Plan Week 1
-
 
 ### Functional
 
