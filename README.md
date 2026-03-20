@@ -7,7 +7,7 @@
 * Timothy Juma – Product domain & services
 * Bruno Ihezie – Material domain & services
 * Member 3 – Impact calculation strategies
-* Member 4 – Architecture & UML diagrams
+* Peniel Mensah – Architecture & UML diagrams
 * Jannatul Bushra – Testing & CI setup
 
 ## Project Overview
