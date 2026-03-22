@@ -6,7 +6,7 @@
 
 * Timothy Juma – Product domain & services
 * Bruno Ihezie – Material domain & services
-* Member 3 – Impact calculation strategies
+* Karla Kanizaj – Impact calculation strategies
 * Peniel Mensah – Architecture & UML diagrams
 * Jannatul Bushra – Testing & CI setup
 
