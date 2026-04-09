@@ -9,7 +9,6 @@
 * Karla Kanizaj – Impact calculation strategies
 * Peniel Mensah – Architecture & UML diagrams
 * Jannatul Bushra – Testing & CI setup
-* Umar Mansoor – Impact calculation strategies
 
 ## Project Overview
 
