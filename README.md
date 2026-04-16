@@ -102,6 +102,8 @@ The system follows a layered architecture:
 <br>
 <br>
 
+![My Image](./images/UML_V2_noNotes.jpg.jpeg)
+
 ## Class and responsibilities sentences
 ---------------------------
 
