@@ -72,3 +72,28 @@ Takes material(s) as input and returns guidance
 
 ### Collaborators:
 Material
+
+## Development Plan Week 3
+
+### UML diagram V1
+<br>
+<br>
+
+![My Image](./images/UML_V3.jpeg)
+
+Our former App class violated DIP from the UML week2. App (merged into Product ApplicationService now) should not depend on Menu, as App is a high-level module and Menu is a low-level module. This violates DIP. The changes we have made are: that now
+1. App class no longer exists as it is merged into ProductApplicationService.
+2. Menu is the one depending on Product ApplicationService.
+3. Product ApplicationService depends on interfaces Material_repository and Product_repository (both are abstractions). We are using a constructor injection to provide dependencies (instances of both interfaces) to Product ApplicationService. 
+
+The listed changes are visible in our updated UML. However, one of the potential on-going issues in the updated UML is that SRP might still be violated in ProductApplicationService due to improper separation of concerns (by adding methods belonging to MaterialService). If that is the case, then we are mixing two different responsibilities (handle methods related to Product class & handle methods related to Material class). In such a case, we have thought of a potential improvement to the UML diagram: 
+1. Add MaterialService class.
+2. Move createMaterial() from ProductApplicationService to MaterialService. Now MaterialService will take care of adding materials to the list of possible reusable materials, while ProductApplicationService will take care of methods related to the Product class. The reason for this is because we have not found information on if we are not allowed to inject objects into other classes muiltiple times if need be.
+3. Add repo1 (derived from Material_repository abstract interface) as a field to MaterialService. MaterialService will need access to the material repository in order to perform its method.
+
+Whether we decide to move forward with this change is going to depend on the Week3 project meeting. 
+
+Additionally, on Lecture 3 slides, page 20, there are examples for each protocol applied that need to be in our new UML diagram. These statements are true for our program: 
+1. Product is a domain concept — it does not calculate impact scores or render UI.
+2. A new impact strategy is a new class — existing classes require no modification.
+3. The application depends on the ImpactCalculationStrategy interface, not any concrete implementation.
