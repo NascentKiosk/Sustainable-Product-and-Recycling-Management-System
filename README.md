@@ -81,7 +81,7 @@ Material
 
 ![My Image](./images/UML_V3.jpeg)
 
-Our former App class violated DIP from the UML week2. App (merged into Product ApplicationService now) should not depend on Menu, as App is a high-level module and Menu is a low-level module. This violates DIP. The changes we have made are: that now
+Our former App class violated DIP from the UML week2. App (merged into Product ApplicationService now) should not depend on Menu, as App is a high-level module and Menu is a low-level module. This violates DIP. The changes we have made are:
 1. App class no longer exists as it is merged into ProductApplicationService.
 2. Menu is the one depending on Product ApplicationService.
 3. Product ApplicationService depends on interfaces Material_repository and Product_repository (both are abstractions). We are using a constructor injection to provide dependencies (instances of both interfaces) to Product ApplicationService. 
