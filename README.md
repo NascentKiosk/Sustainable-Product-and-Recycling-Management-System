@@ -73,7 +73,7 @@ Takes material(s) as input and returns guidance
 ### Collaborators:
 Material
 
-## Development Plan Week 3
+## Week 3: Design rationale
 
 ### UML diagram V1
 <br>
@@ -81,7 +81,9 @@ Material
 
 ![My Image](./images/UML_V3.jpeg)
 
-Our former App class violated DIP from the UML week2. App (merged into Product ApplicationService now) should not depend on Menu, as App is a high-level module and Menu is a low-level module. This violates DIP. The changes we have made are:
+
+
+Our former App class violated DIP from the UML week2. App (merged into Product ApplicationService now) should not depend on Menu, as App is a high-level module and Menu is a low-level module. This violates DIP. The changes we have made are: 
 1. App class no longer exists as it is merged into ProductApplicationService.
 2. Menu is the one depending on Product ApplicationService.
 3. Product ApplicationService depends on interfaces Material_repository and Product_repository (both are abstractions). We are using a constructor injection to provide dependencies (instances of both interfaces) to Product ApplicationService. 
@@ -94,6 +96,6 @@ The listed changes are visible in our updated UML. However, one of the potential
 Whether we decide to move forward with this change is going to depend on the Week3 project meeting. 
 
 Additionally, on Lecture 3 slides, page 20, there are examples for each protocol applied that need to be in our new UML diagram. These statements are true for our program: 
-1. Product is a domain concept — it does not calculate impact scores or render UI.
-2. A new impact strategy is a new class — existing classes require no modification.
-3. The application depends on the ImpactCalculationStrategy interface, not any concrete implementation.
+1. Product is a domain concept — it does not calculate impact scores or render UI (satisfies SRP).
+2. A new impact strategy is a new class — existing classes require no modification (satisfies OCP).
+3. The application depends on the ImpactCalculationStrategy interface, not any concrete implementation (satisfies DIP).
