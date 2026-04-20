@@ -4,7 +4,7 @@
 
 ## Team Members & Roles
 
-* Timothy Juma – Product domain & services
+* Timothy Juma – Material domain & services
 * Karla Kanizaj – Impact calculation strategies
 * Peniel Mensah – Architecture & UML diagrams
 * Jannatul Bushra – Testing & CI setup
