@@ -165,7 +165,7 @@ Material
 
 ## Week 3: Design rationale
 
-### UML diagram V1
+### UML diagram V2
 <br>
 <br>
 
