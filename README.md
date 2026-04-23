@@ -190,3 +190,46 @@ Additionally, on Lecture 3 slides, page 20, there are examples for each protocol
 1. Product is a domain concept — it does not calculate impact scores or render UI (satisfies SRP).
 2. A new impact strategy is a new class — existing classes require no modification (satisfies OCP).
 3. The application depends on the ImpactCalculationStrategy interface, not any concrete implementation (satisfies DIP).
+
+
+## Week 4: Explanation of architectural decisions
+
+<br>
+<br>
+
+![My Image](./images/walking_skeleton_file_image.jpg)
+### 1.
+#### domain/
+Category.java,
+ImpactCalculationStrategy.java,
+Material_repository.java,
+Material.java,
+Product_repository.java,
+Product.java,
+RecyclingGuide.java
+
+#### application/
+MaterialService.java,
+ProductApplicationService.java,
+Simple_Sum_Strategy.java,
+Weighted_Sum_Strategy.java
+
+#### presentation/
+Menu.java
+
+### 2.	ImpactCalculationStrategy interface 
+Impacts our business rules, and since it does, it belongs in the domain layer. If a class/interface contains business rules (calculates impact of product), the result of what we are trying to achieve is usually affected (the impact value of product will change depending on which implemented class we decide to inject into ProductApplicationService) and the way the result is reached is affected (we are likely going to do calculations with different fields/attributes to achieve different values).
+
+####  Material_repository & Product_repository interface 
+Repository interfaces; part of domain, implemented in infrastructure. Thanks to the interface declaration in the domain layer, detailed implementation in the infrastructure layer can be flexibly modified without worrying about changing domain logic. The domain layer should not be concerned with persistence (how), only indicate what the program needs to run (like ingredients in a fridge). Repository interfaces are implemented in the infrastructure layer because the domain layer should be the most stable out of all of our layers, so ideally we should build around it and not change their existing entities. Having repositories as interfaces inside of the domain layer contributes to loose coupling and abstraction purposes. Tightly coupled code relies on a concrete implementation, but loosely coupled code relies on abstraction. Our high level modules (belonging to application layer/domain layer) should depend on abstractions.
+
+
+
+### 3.	Dependency direction of ImpactCalculationStrategy 
+ProductApplicationService receives an ImpactCalculationStrategy via its constructor — this is an example of constructor injection. This way we are also respecting the dependency inversion of Application layer depending on Domain layer, as an interface belongs to the caller (in this case Domain layer) and not implementer (in our case Application layer). 
+
+#### Dependency direction of Material_repository 
+MaterialService receives an Material_repository via its constructor (constructor injection). Respects the dependency inversion: Application layer depends on Domain layer, as an interface belongs to the caller (in this case Domain layer) and not implementer (in our case Infrastructure layer). 
+
+#### Dependency direction of Product_repository 
+ProductApplicationService receives a Product_repository via its constructor (constructor injection). Respects the dependency inversion: Application layer depends on Domain layer, as an interface belongs to the caller (in this case Domain layer) and not implementer (in our case Infrastructure layer). 
