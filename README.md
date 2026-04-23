@@ -200,22 +200,22 @@ Additionally, on Lecture 3 slides, page 20, there are examples for each protocol
 ![My Image](./images/walking_skeleton_file_image.jpg)
 ### 1.
 #### domain/
-Category.java,
-ImpactCalculationStrategy.java,
-Material_repository.java,
-Material.java,
-Product_repository.java,
-Product.java,
-RecyclingGuide.java
+Category.java,<br> 
+ImpactCalculationStrategy.java, <br>
+Material_repository.java, <br>
+Material.java, <br>
+Product_repository.java, <br>
+Product.java, <br>
+RecyclingGuide.java <br>
 
 #### application/
-MaterialService.java,
-ProductApplicationService.java,
-Simple_Sum_Strategy.java,
-Weighted_Sum_Strategy.java
+MaterialService.java, <br>
+ProductApplicationService.java, <br>
+Simple_Sum_Strategy.java, <br>
+Weighted_Sum_Strategy.java <br>
 
 #### presentation/
-Menu.java
+Menu.java <br>
 
 ### 2.	ImpactCalculationStrategy interface 
 Impacts our business rules, and since it does, it belongs in the domain layer. If a class/interface contains business rules (calculates impact of product), the result of what we are trying to achieve is usually affected (the impact value of product will change depending on which implemented class we decide to inject into ProductApplicationService) and the way the result is reached is affected (we are likely going to do calculations with different fields/attributes to achieve different values).
