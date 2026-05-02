@@ -5,6 +5,7 @@ import java.util.List;
 import com.mightyfour.domain.Product;
 import com.mightyfour.domain.ProductRepository;
 
+//Taken from lecture 4
 public class In_memory_repository_product implements ProductRepository {
     private List<Product> store = new ArrayList<>();
 
