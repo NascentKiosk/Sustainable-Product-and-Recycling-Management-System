@@ -28,6 +28,20 @@ public class Product {
     private Category category;
     private LIFESPAN lifespan;
 
+    public Product(String product_name, Material material, int duration){
+
+        this.product_name = product_name;
+
+        materials = new ArrayList<>();
+        materials.add(material);
+
+        lifespan = new LIFESPAN(duration);
+
+
+       //this.category = new CATEGORY(CATEGORY_NAME);
+      
+
+    }
 
 }
 
