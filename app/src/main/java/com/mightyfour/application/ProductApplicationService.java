@@ -1,17 +1,16 @@
 package com.mightyfour.application;
 
-import com.mightyfour.domain.MaterialRepository;
 import com.mightyfour.domain.ProductRepository;
 
 public class ProductApplicationService {
     //ImpactCalculationStrategy strategy;
     ProductRepository repo;
-    MaterialRepository repo1;
+    MaterialService serviceM;
     
 
-    public ProductApplicationService(ProductRepository repo, MaterialRepository repo1){
+    public ProductApplicationService(ProductRepository repo, MaterialService serviceM){
         this.repo = repo;
-        this.repo1 = repo1;
+        this.serviceM = serviceM;
         //this.strategy = strategy;
 
     }
