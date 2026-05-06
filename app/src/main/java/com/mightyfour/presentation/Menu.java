@@ -1,11 +1,12 @@
 package com.mightyfour.presentation;
 import java.util.Scanner;
+import com.mightyfour.application.MaterialService;
 
 public class Menu {
     //private ImpactCalculationStrategy strategy;
     private Scanner input;
+    private MaterialService serviceM;
 
-    
     public Menu(MaterialService serviceM, Scanner input){ 
         this.input = input;
         this.serviceM = serviceM; 
