@@ -1,5 +1,7 @@
 
 package com.mightyfour.application;
+import com.mightyfour.domain.Material;
+import com.mightyfour.domain.MaterialRepository;
 
 
 
