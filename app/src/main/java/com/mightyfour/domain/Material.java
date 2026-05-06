@@ -9,5 +9,9 @@ private String recycling_instruction;
         this.recycling_instruction = recycling_instruction;
         impact_value = 0;
     }
+
+    public String getName(){ //Getter
+        return material_name;
+    }
 }
 
