@@ -7,6 +7,13 @@ public class Menu {
 
     public Menu(){
         this.input = new Scanner(System.in);
+        private MaterialService serviceM; 
+
+        public Menu(MaterialService serviceM){ 
+            this.input = new Scanner(System.in);
+            this.serviceM = serviceM;
+        }
+
     }
 
 
