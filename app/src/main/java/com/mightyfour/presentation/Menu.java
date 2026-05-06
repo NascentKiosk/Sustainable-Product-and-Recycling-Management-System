@@ -5,15 +5,10 @@ public class Menu {
     //private ImpactCalculationStrategy strategy;
     private Scanner input;
 
-    public Menu(){
-        this.input = new Scanner(System.in);
-        private MaterialService serviceM; 
-
-        public Menu(MaterialService serviceM){ 
-            this.input = new Scanner(System.in);
-            this.serviceM = serviceM;
-        }
-
+    
+    public Menu(MaterialService serviceM, Scanner input){ 
+        this.input = input;
+        this.serviceM = serviceM; 
     }
 
 

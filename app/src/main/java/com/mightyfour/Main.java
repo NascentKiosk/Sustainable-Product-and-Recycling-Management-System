@@ -1,4 +1,6 @@
 package com.mightyfour;
+import java.util.Scanner;
+
 
 import com.mightyfour.presentation.Menu;
 import com.mightyfour.application.MaterialService;
@@ -11,7 +13,9 @@ public class Main {
 
         In_memory_repository_material repo1 = new In_memory_repository_material();
         MaterialService serviceM = new MaterialService(repo1);
-        Menu menu = new Menu(serviceM);
+        Scanner scanner = new Scanner(System.in);
+        Menu menu = new Menu(serviceM, scanner);
+
 
         menu.menuLoop();
         
