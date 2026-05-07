@@ -54,6 +54,10 @@ public class Product {
         return productId;
     }
 
+    public void addMaterial(Material material){
+        materials.add(material);
+    }
+
 
 }
 

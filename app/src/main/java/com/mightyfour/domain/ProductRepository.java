@@ -1,5 +1,6 @@
 package com.mightyfour.domain;
 import java.util.List;
+import java.util.UUID;
 import java.util.ArrayList;
 
 public interface ProductRepository {
@@ -8,6 +9,8 @@ public interface ProductRepository {
 
     void save(Product product);
     List<Product> findAll();
+
+    Product findProduct(UUID productId);
 
 }
 
