@@ -28,7 +28,7 @@ public class Product {
     private Category category;
     private LIFESPAN lifespan;
 
-    public Product(String product_name, Material material, int duration){
+    public Product(String product_name, Material material, double duration){
 
         this.product_name = product_name;
 
