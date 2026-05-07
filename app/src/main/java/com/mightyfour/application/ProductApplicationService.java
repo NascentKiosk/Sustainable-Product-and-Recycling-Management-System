@@ -5,6 +5,7 @@ import com.mightyfour.domain.ProductRepository;
 import java.util.UUID;
 
 import com.mightyfour.domain.Product;
+import com.mightyfour.domain.Material;
 
 public class ProductApplicationService {
     //ImpactCalculationStrategy strategy;
@@ -44,8 +45,15 @@ public class ProductApplicationService {
     //public void calculateImpact(product){}
 
 
-    public void addMaterial(){
+    public void addMaterialtoProduct(String material_name, String productId_string){
+        
+        UUID productId = UUID.fromString(productId_string);
 
+        Material temp_Material = serviceM.findMaterial(material_name);
+
+        Product tempProduct = repo.findProduct(productId);
+
+        tempProduct.addMaterial(temp_Material);
       
     }
 

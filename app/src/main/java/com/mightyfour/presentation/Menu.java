@@ -23,21 +23,6 @@ public class Menu {
         String menu_options = "\n1) Add a new product to repository \n2) Add material to an existing product \n3) List all products in repository \n4) View product details \n5) Get recycling guidance \n6) Calculate environmental impact of product \nQ) Quit program\n";
         //Here we initialize a variable that will be checked for menu options
         String user_input = "";
-
-        //Here we create a temporary hashmap that will store our predefined materials for clarity purposes
-        HashMap<String, String> predefined_materials = new HashMap<String, String>();
-
-
-        //Here we define which materials the user can select from in the program in a form of key + value
-        predefined_materials.putIfAbsent("Plastic", "Dispose of plastic waste in the bin with the 'plastic packaging' label.");
-        predefined_materials.putIfAbsent("Paper", "Dispose of paper waste in the bin with the 'paper packaging' label.");
-       
-        //Here we add a loop that will go through all keys we have added to hashmap and then make them available to the user (add to In_memory_repository_material)
-        for(String key : predefined_materials.keySet()){
-            serviceM.createMaterial(key, predefined_materials.get(key));
-        }
-
-
         
         while(!(user_input.equals("Q"))){ 
             
@@ -68,7 +53,15 @@ public class Menu {
                 }
                 //Here the user will try to add another material to existing product
                 else if(user_input.equals("2")){
-                    printOutput("Option2");
+                    printOutput("Enter ID of product: ");
+                    String product_id_string = readInput();
+
+                    printOutput(serviceM.listMaterials());
+                    printOutput("Enter name of material from the list that you would like to to add to product: ");
+                    String material_name = readInput();
+
+                    serviceP.addMaterialtoProduct(material_name, product_id_string);
+                    printOutput("Material has been successfully added to the specified product."); //SUCCESS MESSAGE
                 }
                 //Here we list all products stored in repo
                 else if(user_input.equals("3")){

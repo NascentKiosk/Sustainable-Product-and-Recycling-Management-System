@@ -18,6 +18,8 @@ public class Main {
         In_memory_repository_material repo1 = new In_memory_repository_material();
 
         MaterialService serviceM = new MaterialService(repo1);
+        serviceM.initMaterials();
+        
         ProductApplicationService serviceP = new ProductApplicationService(repo, serviceM);
         
 
