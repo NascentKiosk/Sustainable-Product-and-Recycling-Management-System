@@ -37,7 +37,7 @@ public class ProductApplicationService {
     }
 
 
-    public void getDetails(){
+    public void displayProductDetails(){
 
     }
 

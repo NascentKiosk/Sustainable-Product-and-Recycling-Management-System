@@ -14,7 +14,7 @@ class LIFESPAN{
     }
 
     //Added a getter for testing 
-    public double get_duration(){
+    public double getDuration(){
         return DURATION;
     }
 }
@@ -56,6 +56,14 @@ public class Product {
 
     public void addMaterial(Material material){
         materials.add(material);
+    }
+
+     public double getLifespanDuration(){
+        return lifespan.getDuration();
+    }
+
+    public ArrayList<Material> getMaterialsList(){
+        return materials;
     }
 
 
