@@ -27,7 +27,7 @@ public class In_memory_repository_material implements MaterialRepository {
         }
 
     
-        throw new NullPointerException("Material with the specified material name not found, cannot return null object.");
+        throw new NullPointerException("Material with name '" + material_name + "' not found.");
     
 
     }
