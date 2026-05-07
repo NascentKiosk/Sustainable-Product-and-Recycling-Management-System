@@ -28,5 +28,18 @@ public class MaterialService{
     public Material findMaterial(String material_name){
         return repo1.findMaterial(material_name);
     }
+
+    //This initializes the supported materials for usage
+    public void initMaterials(){
+
+
+   
+        //Here we define which materials the user can select from in the program
+        createMaterial("Plastic", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.");
+        createMaterial("Paper", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.");
+       
+       
+    }
+
     
 }
