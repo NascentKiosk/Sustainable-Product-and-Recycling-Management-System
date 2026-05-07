@@ -24,5 +24,9 @@ public class MaterialService{
 
         return temp_string;
     }
+
+    public Material findMaterial(String material_name){
+        return repo1.findMaterial(material_name);
+    }
     
 }
