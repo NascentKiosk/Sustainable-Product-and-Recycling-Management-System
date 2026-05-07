@@ -72,7 +72,9 @@ public class Menu {
                 }
                 //Here we list all products stored in repo
                 else if(user_input.equals("3")){
-                    printOutput("Option3");
+                    //Here we list all products stored in repo
+                    printOutput("List of current products: \n");
+                    printOutput(serviceP.listProducts());
                 }
                 //Here we show all details of a product
                 else if(user_input.equals("4")){
