@@ -55,7 +55,10 @@ public class Product {
     }
 
     public void addMaterial(Material material){
-        materials.add(material);
+        if(canAddMaterial(material) == false){
+            throw new DuplicateMaterialsException("The material with this name has already been added to Product.");
+        }
+         materials.add(material);
     }
 
      public double getLifespanDuration(){
@@ -64,6 +67,16 @@ public class Product {
 
     public ArrayList<Material> getMaterialsList(){
         return materials;
+    }
+
+    public boolean canAddMaterial(Material material){
+        for(Material a : materials){
+            if(a.getName().equals(material.getName())){
+                return false;
+            }
+        }
+       
+        return true;
     }
 
 

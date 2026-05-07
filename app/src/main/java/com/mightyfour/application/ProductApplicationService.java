@@ -3,6 +3,7 @@ package com.mightyfour.application;
 import com.mightyfour.domain.ProductRepository;
 
 import java.util.UUID;
+import java.util.ArrayList;
 
 import com.mightyfour.domain.Product;
 import com.mightyfour.domain.Material;
@@ -36,12 +37,31 @@ public class ProductApplicationService {
         return temp_string;
     }
 
+    public String displayProductDetails(String productId_string){
+       
+        
+        UUID productId = UUID.fromString(productId_string);
+        Product product = repo.findProduct(productId);
 
-    public void displayProductDetails(){
+        String productName = product.getName();
 
+        String productLifespanDurationString = Double.toString(product.getLifespanDuration());
+
+        ArrayList<Material> productMaterials = product.getMaterialsList();
+        ArrayList<String> productMaterialsString = new ArrayList<>();
+        for(Material material : productMaterials){
+            productMaterialsString.add(material.getName());
+        }
+       
+        String tempString = "Name: " + productName + "\n ID: " + productId_string + "\n Lifespan: " + productLifespanDurationString  + "\n Materials: ";
+
+        for(String MaterialString : productMaterialsString){
+            tempString += "\n   - " + MaterialString;
+        }
+        return tempString;
+        
     }
-
-
+    
     //public void calculateImpact(product){}
 
 

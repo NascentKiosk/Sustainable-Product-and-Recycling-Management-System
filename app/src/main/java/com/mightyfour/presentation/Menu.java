@@ -71,8 +71,11 @@ public class Menu {
                 }
                 //Here we show all details of a product
                 else if(user_input.equals("4")){
-                    printOutput("Option4");
-            
+                    printOutput("Enter ID of product you wish to see the details of: ");
+                    String product_id = readInput();
+                
+                
+                    printOutput(serviceP.displayProductDetails(product_id));
                 }
                 //Here we will showcase recycling instructions of specified Product object
                 else if(user_input.equals("5")){
