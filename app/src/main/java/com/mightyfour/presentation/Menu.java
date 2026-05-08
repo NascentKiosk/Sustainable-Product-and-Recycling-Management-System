@@ -3,17 +3,20 @@ import java.util.HashMap;
 import java.util.Scanner;
 import com.mightyfour.application.MaterialService;
 import com.mightyfour.application.ProductApplicationService;
+import com.mightyfour.application.ListMaterialsResult;
 
 public class Menu {
     //private ImpactCalculationStrategy strategy;
     private Scanner input;
     private MaterialService serviceM;
     private ProductApplicationService serviceP;
+    private OutputFormatter formatter;
 
-    public Menu(MaterialService serviceM, ProductApplicationService serviceP, Scanner input){ 
+    public Menu(MaterialService serviceM, ProductApplicationService serviceP, Scanner input, OutputFormatter formatter){ 
         this.input = input;
         this.serviceM = serviceM;
-        this.serviceP = serviceP; 
+        this.serviceP = serviceP;
+        this.formatter = formatter; 
     }
 
 
@@ -41,8 +44,9 @@ public class Menu {
                     printOutput("Enter name of product: ");
                     String user_adds_product_name = readInput();
 
-                    printOutput("List of current reusable materials: \n");
-                    printOutput(serviceM.listMaterials());
+                    ListMaterialsResult result = serviceP.listPredefinedMaterials();
+                    formatter.printListMaterialsResult(result);
+
                     printOutput("Enter name of material from the list: ");
                     String user_adds_material = readInput();
 
@@ -56,7 +60,8 @@ public class Menu {
                     printOutput("Enter ID of product: ");
                     String product_id_string = readInput();
 
-                    printOutput(serviceM.listMaterials());
+                    ListMaterialsResult result = serviceP.listPredefinedMaterials();
+                    formatter.printListMaterialsResult(result);
                     printOutput("Enter name of material from the list that you would like to to add to product: ");
                     String material_name = readInput();
 

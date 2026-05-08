@@ -79,4 +79,7 @@ public class ProductApplicationService {
 
     public void createMaterial(){}
 
+     public ListMaterialsResult listPredefinedMaterials(){
+        return new ListMaterialsResult(serviceM.listMaterials());
+    }
 }

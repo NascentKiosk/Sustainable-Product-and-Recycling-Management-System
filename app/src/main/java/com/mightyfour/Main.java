@@ -1,6 +1,8 @@
 package com.mightyfour;
 
 import com.mightyfour.presentation.Menu;
+import com.mightyfour.presentation.OutputFormatter;
+
 import java.util.Scanner;
 
 import com.mightyfour.application.MaterialService;
@@ -22,9 +24,9 @@ public class Main {
         
         ProductApplicationService serviceP = new ProductApplicationService(repo, serviceM);
         
-
+        OutputFormatter formatter = new OutputFormatter();
         Scanner scanner = new Scanner(System.in);
-        Menu menu = new Menu(serviceM, serviceP, scanner);
+        Menu menu = new Menu(serviceM, serviceP, scanner, formatter);
 
         menu.menuLoop();
         
