@@ -1,5 +1,6 @@
 package com.mightyfour.domain;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 //Added helper class LIFESPAN
@@ -13,7 +14,7 @@ class LIFESPAN{
     }
 
     //Added a getter for testing 
-    public double get_duration(){
+    public double getDuration(){
         return DURATION;
     }
 }
@@ -22,13 +23,14 @@ class LIFESPAN{
 
 public class Product {
 
+    private UUID productId;
     private String product_name;
     private ArrayList<Material> materials;
 
     private Category category;
     private LIFESPAN lifespan;
 
-    public Product(String product_name, Material material, int duration){
+    public Product(String product_name, Material material, double duration, UUID productId){
 
         this.product_name = product_name;
 
@@ -39,9 +41,44 @@ public class Product {
 
 
        //this.category = new CATEGORY(CATEGORY_NAME);
+       this.productId = productId;
       
 
     }
+
+    public String getName(){
+        return product_name;
+    }
+
+    public UUID getId(){
+        return productId;
+    }
+
+    public void addMaterial(Material material){
+        if(canAddMaterial(material) == false){
+            throw new DuplicateMaterialsException("The material with this name has already been added to Product.");
+        }
+         materials.add(material);
+    }
+
+     public double getLifespanDuration(){
+        return lifespan.getDuration();
+    }
+
+    public ArrayList<Material> getMaterialsList(){
+        return materials;
+    }
+
+    public boolean canAddMaterial(Material material){
+        for(Material a : materials){
+            if(a.getName().equals(material.getName())){
+                return false;
+            }
+        }
+       
+        return true;
+    }
+
 
 }
 

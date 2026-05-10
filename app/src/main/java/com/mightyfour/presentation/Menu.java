@@ -1,18 +1,22 @@
 package com.mightyfour.presentation;
+import java.util.HashMap;
 import java.util.Scanner;
 import com.mightyfour.application.MaterialService;
 import com.mightyfour.application.ProductApplicationService;
+import com.mightyfour.application.ListMaterialsResult;
 
 public class Menu {
     //private ImpactCalculationStrategy strategy;
     private Scanner input;
     private MaterialService serviceM;
     private ProductApplicationService serviceP;
+    private OutputFormatter formatter;
 
-    public Menu(MaterialService serviceM, ProductApplicationService serviceP, Scanner input){ 
+    public Menu(MaterialService serviceM, ProductApplicationService serviceP, Scanner input, OutputFormatter formatter){ 
         this.input = input;
         this.serviceM = serviceM;
-        this.serviceP = serviceP; 
+        this.serviceP = serviceP;
+        this.formatter = formatter; 
     }
 
 
@@ -22,7 +26,6 @@ public class Menu {
         String menu_options = "\n1) Add a new product to repository \n2) Add material to an existing product \n3) List all products in repository \n4) View product details \n5) Get recycling guidance \n6) Calculate environmental impact of product \nQ) Quit program\n";
         //Here we initialize a variable that will be checked for menu options
         String user_input = "";
-
         
         while(!(user_input.equals("Q"))){ 
             
@@ -37,20 +40,47 @@ public class Menu {
         
                 //Here the user will try to add a new product to repo
                 if(user_input.equals("1")){
-                     printOutput("Option1");
+                    //Here the user will try to add a new product to repo
+                    printOutput("Enter name of product: ");
+                    String user_adds_product_name = readInput();
+
+                    ListMaterialsResult result = serviceP.listPredefinedMaterials();
+                    formatter.printListMaterialsResult(result);
+
+                    printOutput("Enter name of material from the list: ");
+                    String user_adds_material = readInput();
+
+                    //create product using productapplicationservice
+                    //lifespan just used just for testing, not fully implemented yet
+                    serviceP.createProduct(user_adds_product_name, user_adds_material, 0);
+                    printOutput("Action was successful.");
                 }
                 //Here the user will try to add another material to existing product
                 else if(user_input.equals("2")){
-                    printOutput("Option2");
+                    printOutput("Enter ID of product: ");
+                    String product_id_string = readInput();
+
+                    ListMaterialsResult result = serviceP.listPredefinedMaterials();
+                    formatter.printListMaterialsResult(result);
+                    printOutput("Enter name of material from the list that you would like to to add to product: ");
+                    String material_name = readInput();
+
+                    serviceP.addMaterialtoProduct(material_name, product_id_string);
+                    printOutput("Material has been successfully added to the specified product."); //SUCCESS MESSAGE
                 }
                 //Here we list all products stored in repo
                 else if(user_input.equals("3")){
-                    printOutput("Option3");
+                    //Here we list all products stored in repo
+                    printOutput("List of current products: \n");
+                    printOutput(serviceP.listProducts());
                 }
                 //Here we show all details of a product
                 else if(user_input.equals("4")){
-                    printOutput("Option4");
-            
+                    printOutput("Enter ID of product you wish to see the details of: ");
+                    String product_id = readInput();
+                
+                
+                    printOutput(serviceP.displayProductDetails(product_id));
                 }
                 //Here we will showcase recycling instructions of specified Product object
                 else if(user_input.equals("5")){
