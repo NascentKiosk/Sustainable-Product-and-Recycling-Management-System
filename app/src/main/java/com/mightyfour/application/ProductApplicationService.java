@@ -106,4 +106,18 @@ public class ProductApplicationService {
         
     }
 
+    public ProvideGuidanceResult provideGuidance(String productId_string){
+
+        UUID productId = UUID.fromString(productId_string);
+
+        Product tempProduct = repo.findProduct(productId);
+
+        ArrayList<Material> tempMaterials = tempProduct.getMaterialsList();
+
+        ArrayList<String> allInstructions = serviceR.retrieveInstructions(tempMaterials);
+
+        return new ProvideGuidanceResult(allInstructions);
+
+    }
+
 }

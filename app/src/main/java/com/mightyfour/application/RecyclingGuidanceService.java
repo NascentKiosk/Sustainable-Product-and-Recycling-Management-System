@@ -2,7 +2,6 @@ package com.mightyfour.application;
 
 import java.util.ArrayList;
 
-import com.mightyfour.domain.MaterialRepository;
 import com.mightyfour.domain.Category;
 import com.mightyfour.domain.Material;
 import com.mightyfour.domain.Type;
@@ -19,7 +18,10 @@ public ArrayList<String> retrieveInstructions(ArrayList<Material> materials){
         ArrayList<String> temp = new ArrayList<>();
 
         for(Material material : materials){
-            temp.add(material.getInstruction());
+            if(!temp.contains(material.getInstruction())){
+                temp.add(material.getInstruction());
+            }
+            
         }
         
         return temp;

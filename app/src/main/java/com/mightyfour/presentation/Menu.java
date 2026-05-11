@@ -4,6 +4,7 @@ import java.util.Scanner;
 import com.mightyfour.application.MaterialService;
 import com.mightyfour.application.ProductApplicationService;
 import com.mightyfour.application.ListMaterialsResult;
+import com.mightyfour.application.ProvideGuidanceResult;
 
 public class Menu {
     //private ImpactCalculationStrategy strategy;
@@ -84,7 +85,12 @@ public class Menu {
                 }
                 //Here we will showcase recycling instructions of specified Product object
                 else if(user_input.equals("5")){
-                    printOutput("Option5");
+                    //Here we will display recycling instructions of a product
+                    printOutput("Enter ID of product you wish to recycle: ");
+                    String productId = readInput();
+
+                    ProvideGuidanceResult result = serviceP.provideGuidance(productId);
+                    formatter.printProvideGuidanceResult(result);
                     
                 
                 }
