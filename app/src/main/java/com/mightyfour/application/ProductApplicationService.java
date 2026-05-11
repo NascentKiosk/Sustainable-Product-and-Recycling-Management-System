@@ -12,19 +12,29 @@ public class ProductApplicationService {
     //ImpactCalculationStrategy strategy;
     ProductRepository repo;
     MaterialService serviceM;
+    RecyclingGuidanceService serviceR;
     
 
-    public ProductApplicationService(ProductRepository repo, MaterialService serviceM){
+    public ProductApplicationService(ProductRepository repo, MaterialService serviceM, RecyclingGuidanceService serviceR){
         this.repo = repo;
         this.serviceM = serviceM;
+        this.serviceR = serviceR;
         //this.strategy = strategy;
 
     }
 
     public void createProduct(String product_name, String material_name, double duration){
         UUID tempId = UUID.randomUUID();
-        Product temp_product = new Product(product_name, serviceM.findMaterial(material_name), duration, tempId);
-        repo.save(temp_product);
+        Product tempProduct = new Product(product_name, serviceM.findMaterial(material_name), duration, tempId);
+
+        repo.save(tempProduct); 
+
+        ArrayList<Material> materials = tempProduct.getMaterialsList();
+
+        //Product temp = product_service.findProduct(product_name);
+        assignCategoryToProduct(materials, repo.findProduct(tempProduct.getId()));
+
+        
     }
     
     public String listProducts(){
@@ -53,7 +63,7 @@ public class ProductApplicationService {
             productMaterialsString.add(material.getName());
         }
        
-        String tempString = "Name: " + productName + "\n ID: " + productId_string + "\n Lifespan: " + productLifespanDurationString  + "\n Materials: ";
+        String tempString = "Name: " + productName + "\n ID: " + productId_string + "\n Category: " + product.getCategory()  + "\n Lifespan: " + productLifespanDurationString  + "\n Materials: ";
 
         for(String MaterialString : productMaterialsString){
             tempString += "\n   - " + MaterialString;
@@ -74,9 +84,26 @@ public class ProductApplicationService {
         Product tempProduct = repo.findProduct(productId);
 
         tempProduct.addMaterial(temp_Material);
+
+        ArrayList<Material> materials = tempProduct.getMaterialsList();
+
+        //Product temp = product_service.findProduct(product_name);
+        assignCategoryToProduct(materials, tempProduct);
+
+        
       
     }
 
     public void createMaterial(){}
+
+     public ListMaterialsResult listPredefinedMaterials(){
+        return new ListMaterialsResult(serviceM.listMaterials());
+    }
+
+    public void assignCategoryToProduct(ArrayList<Material> materials, Product product){
+        //Category temp = recycling_service.get_category(materials);
+        product.assignCategory(serviceR.calculateCategory(materials));
+        
+    }
 
 }
