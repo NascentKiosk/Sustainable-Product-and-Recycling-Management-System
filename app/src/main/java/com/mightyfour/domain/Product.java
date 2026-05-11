@@ -79,6 +79,14 @@ public class Product {
         return true;
     }
 
+    //better than replacing the entire product (OCP - open for extension, closed for modification)
+    //method name contains domain-driven intent
+    public void assignCategory(Category category){
+        this.category = category;
+    }
 
+    public Category getCategory(){
+        return category;
+    }
 }
 
