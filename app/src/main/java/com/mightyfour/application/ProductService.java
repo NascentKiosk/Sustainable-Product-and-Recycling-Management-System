@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import com.mightyfour.domain.Product;
+import com.mightyfour.domain.ImpactStrategyFactory;
 import com.mightyfour.domain.Material;
 import com.mightyfour.domain.ProductRepository;
 import com.mightyfour.domain.MaterialRepository;
@@ -11,11 +12,19 @@ import com.mightyfour.domain.MaterialRepository;
 public class ProductService {
     ProductRepository repo;
     MaterialRepository repo1;
+    ImpactStrategyFactory factory;
+    
    
 
-    public ProductService(ProductRepository repo, MaterialRepository repo1){
+    public ProductService(ProductRepository repo, MaterialRepository repo1, ImpactStrategyFactory factory){
         this.repo = repo;
         this.repo1 = repo1;
+        this.factory = factory;
+    }
+
+    public ProvideImpactValueResult calculateImpact(UUID productId, String strategyNum){
+        int result = (factory.create(strategyNum)).calculateImpact(repo.findProduct(productId));
+        return new ProvideImpactValueResult(result);
     }
 
     public void createProduct(UUID productId, String product_name, Material material, double duration){
@@ -26,9 +35,6 @@ public class ProductService {
 
     }
     
-   
-    //public void calculateImpact(product){}
-
     public ArrayList<Material> addMaterialtoProduct(UUID productId, Material material){
 
         Product temp_Product = repo.findProduct(productId);
