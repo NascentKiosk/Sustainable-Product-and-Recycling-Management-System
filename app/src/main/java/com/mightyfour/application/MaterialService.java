@@ -1,4 +1,3 @@
-
 package com.mightyfour.application;
 import com.mightyfour.domain.Type;
 import com.mightyfour.domain.Material;
@@ -48,4 +47,4 @@ public class MaterialService{
     }
 
     
-}
+} 

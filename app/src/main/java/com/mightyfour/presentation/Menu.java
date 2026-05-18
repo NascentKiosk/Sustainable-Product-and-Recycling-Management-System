@@ -5,6 +5,7 @@ import com.mightyfour.application.MaterialService;
 import com.mightyfour.application.ApplicationService;
 import com.mightyfour.application.ListMaterialsResult;
 import com.mightyfour.application.ProvideGuidanceResult;
+import com.mightyfour.application.ProvideImpactValueResult;
 
 public class Menu {
     //private ImpactCalculationStrategy strategy;
@@ -94,8 +95,12 @@ public class Menu {
                 }
                 //This option will calculate impact of product 
                 else if(user_input.equals("6")){
-                    printOutput("Option6");
-                    
+                    printOutput("Enter ID of product you wish to see the details of: ");
+                    String productId = readInput();
+                    printOutput("Enter 1 for simple sum strategy, or enter 2 for weighted sum strategy: ");
+                    String strategyNum = readInput();
+                    ProvideImpactValueResult result = serviceApp.provideImpactValue(productId, strategyNum);
+                    formatter.printImpactValueResult(result);
             
                 }
                 //Exit program

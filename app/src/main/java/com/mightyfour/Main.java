@@ -12,8 +12,7 @@ import com.mightyfour.infrastructure.In_memory_repository_material;
 import com.mightyfour.application.ApplicationService;
 import com.mightyfour.application.RecyclingGuidanceService;
 import com.mightyfour.infrastructure.In_memory_repository_product;
-
-
+import com.mightyfour.domain.ImpactStrategyFactory;
 
 public class Main {
     public static void main(String[] args){
@@ -24,8 +23,9 @@ public class Main {
         MaterialService serviceM = new MaterialService(repo1);
         serviceM.initMaterials();
         
+        ImpactStrategyFactory factory = new DefaultImpactStrategyFactory();
         RecyclingGuidanceService serviceR = new RecyclingGuidanceService();
-        ProductService serviceP = new ProductService(repo, repo1);
+        ProductService serviceP = new ProductService(repo, repo1, factory);
         ApplicationService serviceApp = new ApplicationService(serviceP, serviceM, serviceR);
         
         OutputFormatter formatter = new OutputFormatter();

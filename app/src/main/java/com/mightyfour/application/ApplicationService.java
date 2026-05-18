@@ -17,7 +17,6 @@ public class ApplicationService {
         this.serviceP = serviceP;
         this.serviceM = serviceM;
         this.serviceR = serviceR;
-        //this.strategy = strategy;
 
     }
 
@@ -92,6 +91,11 @@ public class ApplicationService {
 
         return new ProvideGuidanceResult(allInstructions);
 
+    }
+
+    public ProvideImpactValueResult provideImpactValue(String productId_string, String strategyNum){
+        UUID productId = UUID.fromString(productId_string);
+        return serviceP.calculateImpact(productId, strategyNum);
     }
 
 }
