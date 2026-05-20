@@ -1,4 +1,3 @@
-
 package com.mightyfour.application;
 import com.mightyfour.domain.Type;
 import com.mightyfour.domain.Material;
@@ -41,9 +40,11 @@ public class MaterialService{
         //Here we define which materials the user can select from in the program
         createMaterial("Plastic a", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.", Type.PLASTIC);
         createMaterial("Paper b", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.", Type.PAPER);
+        createMaterial("Plastic b", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.", Type.PLASTIC);
+        createMaterial("Paper a", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.", Type.PAPER);
        
        
     }
 
     
-}
+} 

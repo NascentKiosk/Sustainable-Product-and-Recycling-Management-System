@@ -2,20 +2,20 @@ package com.mightyfour.presentation;
 import java.util.HashMap;
 import java.util.Scanner;
 import com.mightyfour.application.MaterialService;
-import com.mightyfour.application.ProductApplicationService;
+import com.mightyfour.application.ApplicationService;
 import com.mightyfour.application.ListMaterialsResult;
+import com.mightyfour.application.ProvideGuidanceResult;
+import com.mightyfour.application.ProvideImpactValueResult;
 
 public class Menu {
     //private ImpactCalculationStrategy strategy;
     private Scanner input;
-    private MaterialService serviceM;
-    private ProductApplicationService serviceP;
+    private ApplicationService serviceApp;
     private OutputFormatter formatter;
 
-    public Menu(MaterialService serviceM, ProductApplicationService serviceP, Scanner input, OutputFormatter formatter){ 
+    public Menu(ApplicationService serviceApp, Scanner input, OutputFormatter formatter){ 
         this.input = input;
-        this.serviceM = serviceM;
-        this.serviceP = serviceP;
+        this.serviceApp = serviceApp;
         this.formatter = formatter; 
     }
 
@@ -44,7 +44,7 @@ public class Menu {
                     printOutput("Enter name of product: ");
                     String user_adds_product_name = readInput();
 
-                    ListMaterialsResult result = serviceP.listPredefinedMaterials();
+                    ListMaterialsResult result = serviceApp.listPredefinedMaterials();
                     formatter.printListMaterialsResult(result);
 
                     printOutput("Enter name of material from the list: ");
@@ -52,7 +52,7 @@ public class Menu {
 
                     //create product using productapplicationservice
                     //lifespan just used just for testing, not fully implemented yet
-                    serviceP.createProduct(user_adds_product_name, user_adds_material, 0);
+                    serviceApp.createProduct(user_adds_product_name, user_adds_material, 0);
                     printOutput("Action was successful.");
                 }
                 //Here the user will try to add another material to existing product
@@ -60,19 +60,19 @@ public class Menu {
                     printOutput("Enter ID of product: ");
                     String product_id_string = readInput();
 
-                    ListMaterialsResult result = serviceP.listPredefinedMaterials();
+                    ListMaterialsResult result = serviceApp.listPredefinedMaterials();
                     formatter.printListMaterialsResult(result);
                     printOutput("Enter name of material from the list that you would like to to add to product: ");
                     String material_name = readInput();
 
-                    serviceP.addMaterialtoProduct(material_name, product_id_string);
+                    serviceApp.addMaterialtoProduct(material_name, product_id_string);
                     printOutput("Material has been successfully added to the specified product."); //SUCCESS MESSAGE
                 }
                 //Here we list all products stored in repo
                 else if(user_input.equals("3")){
                     //Here we list all products stored in repo
                     printOutput("List of current products: \n");
-                    printOutput(serviceP.listProducts());
+                    printOutput(serviceApp.listProducts());
                 }
                 //Here we show all details of a product
                 else if(user_input.equals("4")){
@@ -80,18 +80,27 @@ public class Menu {
                     String product_id = readInput();
                 
                 
-                    printOutput(serviceP.displayProductDetails(product_id));
+                    printOutput(serviceApp.displayProductDetails(product_id));
                 }
                 //Here we will showcase recycling instructions of specified Product object
                 else if(user_input.equals("5")){
-                    printOutput("Option5");
+                    //Here we will display recycling instructions of a product
+                    printOutput("Enter ID of product you wish to recycle: ");
+                    String productId = readInput();
+
+                    ProvideGuidanceResult result = serviceApp.provideGuidance(productId);
+                    formatter.printProvideGuidanceResult(result);
                     
                 
                 }
                 //This option will calculate impact of product 
                 else if(user_input.equals("6")){
-                    printOutput("Option6");
-                    
+                    printOutput("Enter ID of product you wish to see the details of: ");
+                    String productId = readInput();
+                    printOutput("Enter 1 for simple sum strategy, or enter 2 for weighted sum strategy: ");
+                    String strategyNum = readInput();
+                    ProvideImpactValueResult result = serviceApp.provideImpactValue(productId, strategyNum);
+                    formatter.printImpactValueResult(result);
             
                 }
                 //Exit program
