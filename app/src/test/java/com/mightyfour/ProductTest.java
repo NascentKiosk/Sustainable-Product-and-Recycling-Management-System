@@ -15,7 +15,7 @@ public class ProductTest {
     @Test
     public void shouldCorrectlyStoreAndReturnItsName(){
         //ARRANGE
-        Material material = new Material("Plastic C", "Throw away outside of building.", Type.PLASTIC);
+        Material material = new Material("Plastic C", "Throw away outside of building.", Type.PLASTIC, 1.0);
         UUID productId = UUID.randomUUID();
                                        
         //ACT
@@ -32,7 +32,7 @@ public class ProductTest {
     @Test
     public void shouldCorrectlyStoreAndReturnItsCategory(){
         //ARRANGE
-        Material material = new Material("Plastic C", "Throw away outside of building.", Type.PLASTIC);
+        Material material = new Material("Plastic C", "Throw away outside of building.", Type.PLASTIC, 1.0);
         UUID productId = UUID.randomUUID();
         Category category = Category.PLASTIC_PACKAGING;
         Product product = new Product("Plate", material , 0, productId);
@@ -49,7 +49,7 @@ public class ProductTest {
     @Test
     public void shouldCorrectlyStoreMaterialAndReturnListOfItsMaterials(){
         //ARRANGE
-        Material material = new Material("Plastic C", "Throw away outside of building.", Type.PLASTIC);
+        Material material = new Material("Plastic C", "Throw away outside of building.", Type.PLASTIC, 1.0);
         UUID productId = UUID.randomUUID();
         Product product = new Product("Plate", material , 0, productId);
 
@@ -66,8 +66,8 @@ public class ProductTest {
     @Test
     public void shouldCorrectlyAddMaterialToExistingProductAndReturnListOfItsMaterials(){
         //ARRANGE
-        Material plasticB = new Material("Plastic B", "Throw away in a bin outside of building.", Type.PLASTIC);
-        Material paperD = new Material("Paper D", "Roll each sheet into an airplane and test the power of wind through the window.", Type.PAPER);
+        Material plasticB = new Material("Plastic B", "Throw away in a bin outside of building.", Type.PLASTIC, 1.0);
+        Material paperD = new Material("Paper D", "Roll each sheet into an airplane and test the power of wind through the window.", Type.PAPER, 1.0);
         UUID productId = UUID.randomUUID();
         Product product = new Product("Plate", plasticB , 0, productId);
         //ACT
@@ -86,7 +86,7 @@ public class ProductTest {
     @Test
     public void shouldCorrectlyStoreAndReturnItsLifespan(){
         //ARRANGE
-        Material paperD = new Material("Paper D", "Roll each sheet into an airplane and test the power of wind through the window.", Type.PAPER);
+        Material paperD = new Material("Paper D", "Roll each sheet into an airplane and test the power of wind through the window.", Type.PAPER, 1.0);
         UUID productId = UUID.randomUUID();
         Product product = new Product("Plate", paperD , 17, productId);
         //ACT
