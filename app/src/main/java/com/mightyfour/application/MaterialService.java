@@ -14,8 +14,8 @@ public class MaterialService{
         this.repo1 = repo1;
     }
 
-     public void createMaterial(String material_name, String recycling_instruction, Type type){
-        repo1.save(new Material(material_name, recycling_instruction, type)); 
+     public void createMaterial(String material_name, String recycling_instruction, Type type, double impactValue){
+        repo1.save(new Material(material_name, recycling_instruction, type, impactValue)); 
     }
 
     public List<String> listMaterials(){
@@ -38,10 +38,10 @@ public class MaterialService{
 
    
         //Here we define which materials the user can select from in the program
-        createMaterial("Plastic a", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.", Type.PLASTIC);
-        createMaterial("Paper b", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.", Type.PAPER);
-        createMaterial("Plastic b", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.", Type.PLASTIC);
-        createMaterial("Paper a", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.", Type.PAPER);
+        createMaterial("PET Plastic", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.", Type.PLASTIC, 3.5);
+        createMaterial("HDPE Plastic", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.", Type.PAPER , 2.0 );
+        createMaterial("PVC Plastic", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.", Type.PLASTIC, 2.1);
+        createMaterial("Recycled Paperboard", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.", Type.PAPER , 0.50 );
        
        
     }
