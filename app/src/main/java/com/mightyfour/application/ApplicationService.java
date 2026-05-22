@@ -87,9 +87,9 @@ public class ApplicationService {
 
         ArrayList<Material> tempMaterials = tempProduct.getMaterialsList();
 
-        ArrayList<String> allInstructions = serviceR.retrieveInstructions(tempMaterials);
+        ArrayList<String> allMessages = serviceR.retrieveMessages(tempMaterials);
 
-        return new ProvideGuidanceResult(allInstructions);
+        return new ProvideGuidanceResult(allMessages);
 
     }
 

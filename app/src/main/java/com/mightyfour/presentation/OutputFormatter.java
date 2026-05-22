@@ -18,11 +18,11 @@ public class OutputFormatter {
     }
 
     public void printProvideGuidanceResult(ProvideGuidanceResult result) {
-        ArrayList<String> instructions = result.getInstructions();
+        ArrayList<String> messages = result.getMessages();
 
-        System.out.println("Recycling instructions: \n");
-        for(String instruction : instructions){
-            System.out.println(instruction);
+        System.out.println("How to recycle the specified Product: \n");
+        for(String message : messages){
+            System.out.println(message);
         }
         
         
