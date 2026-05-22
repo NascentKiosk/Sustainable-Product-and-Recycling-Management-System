@@ -2,15 +2,15 @@ package com.mightyfour.application;
 import java.util.ArrayList;
 
 public class ProvideGuidanceResult {
-    private ArrayList<String> instructions;
+    private ArrayList<String> messages;
 
-    public ProvideGuidanceResult(ArrayList<String> instructions){
-        this.instructions = instructions;
+    public ProvideGuidanceResult(ArrayList<String> messages){
+        this.messages = messages;
     }
 
 
-    public ArrayList<String> getInstructions(){
+    public ArrayList<String> getMessages(){
 
-        return instructions;
+        return messages;
     }
 }
