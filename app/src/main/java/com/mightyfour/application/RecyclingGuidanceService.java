@@ -1,30 +1,36 @@
 package com.mightyfour.application;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
+import com.mightyfour.domain.RecyclingGuidance;
+import com.mightyfour.domain.RecyclingGuidanceFactory;
 import com.mightyfour.domain.Category;
 import com.mightyfour.domain.Material;
 import com.mightyfour.domain.Type;
 
+
 public class RecyclingGuidanceService {
 
+    RecyclingGuidanceFactory guidance;
 
-    public RecyclingGuidanceService(){
+    public RecyclingGuidanceService(RecyclingGuidanceFactory guidance){
+        this.guidance = guidance;
        
     }
     //Here instead of taking the product we are taking just the materials arraylist from product in order to respect text on github (UML needs to be changed too)
-public ArrayList<String> retrieveInstructions(ArrayList<Material> materials){
+public ArrayList<String> retrieveMessages(ArrayList<Material> materials){
 
-        ArrayList<String> temp = new ArrayList<>();
-
-        for(Material material : materials){
-            if(!temp.contains(material.getInstruction())){
-                temp.add(material.getInstruction());
+        ArrayList<String> finalVerdict = new ArrayList<>(); 
+        Set<Category> categoriesDetected = new HashSet<>(); 
+        for(Material material : materials){ 
+            categoriesDetected.add(material.getType().getCategory()); } 
+        for(Category category : categoriesDetected){
+            finalVerdict.add(guidance.create(category).getMessage()); 
             }
-            
-        }
         
-        return temp;
+        return finalVerdict;
 }
 
 public Category calculateCategory(ArrayList<Material> materials){
