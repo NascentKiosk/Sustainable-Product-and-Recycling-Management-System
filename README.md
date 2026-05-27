@@ -11,7 +11,7 @@
 
 ## Project Overview
 
-This project is a console-based application designed to support sustainable consumption and production (SDG 12). The system manages products and materials, calculates environmental impact using interchangeable strategies, and provides recycling guidance.
+This project is a console-based application designed to support sustainable consumption and production (SDG 12). The system manages products and materials, calculates environmental impact using interchangeable strategies, and provides recycling guidance.  
 
 The focus is on object-oriented design, clean architecture, and testability.
 
@@ -233,3 +233,18 @@ MaterialService receives an Material_repository via its constructor (constructor
 
 #### Dependency direction of Product_repository 
 ProductApplicationService receives a Product_repository via its constructor (constructor injection). Respects the dependency inversion: Application layer depends on Domain layer, as an interface belongs to the caller (in this case Domain layer) and not implementer (in our case Infrastructure layer). 
+
+## Week 10 - Sequence Diagram and Documentation
+This project includes a sequence diagram for the “Calculate Environmental Impact” use case.
+The diagram demonstrates how the Presentation layer (`Menu`) communicates with the Application layer (`ApplicationService` and `ProductService`) and finally the Domain layer (`Product`).
+The sequence diagram was created directly from the Java implementation to ensure that every lifeline and method call matches the code exactly.
+The diagram also models iteration behaviour using a UML `loop` fragment as required in Week 10.
+
+### Diagram Files
+
+![Sequence Diagram](docs/sequence-diagram.png)
+
+
+
+
+
