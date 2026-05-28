@@ -25,7 +25,7 @@ public class Main {
         serviceM.initMaterials();
         
         ImpactStrategyFactory impactFactory = new DefaultImpactStrategyFactory();
-        RecyclingGuidanceFactory guidanceFactory = new RecyclingGuidanceFactory();
+        RecyclingGuidanceFactory guidanceFactory = new DefaultRecyclingGuidanceFactory();
         RecyclingGuidanceService serviceR = new RecyclingGuidanceService(guidanceFactory);
         ProductService serviceP = new ProductService(repo, repo1, impactFactory);
         ApplicationService serviceApp = new ApplicationService(serviceP, serviceM, serviceR);
