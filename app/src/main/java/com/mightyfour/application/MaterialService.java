@@ -51,10 +51,10 @@ public class MaterialService{
         createMaterial("Virgin Glass", "Dispose of glass waste in the bin with the 'glass packaging' label.", Type.GLASS , 1.1);
         createMaterial("Recycled Glass", "Dispose of glass waste in the bin with the 'glass packaging' label.", Type.GLASS , 0.64);
 
-        createMaterial("Wood Grade 2", "Dispose of organic waste in the bin with the 'organic waste' label.", Type.ORGANIC , 0.31);
+        createMaterial("Sorona", "Dispose of synthetic textiles in the bin with the 'synthetic textile' label.", Type.SYNTETIC_TEXTILE , 3.3);
         createMaterial("Natural Rubber", "Dispose of organic waste in the bin with the 'organic waste' label.", Type.ORGANIC , 1.3);
 
-        createMaterial("Unpure Cotton", "Dispose of synthetic textiles in the bin with the 'synthetic textile' label.", Type.SYNTETIC_TEXTILE, 5.5);
+        createMaterial("Fleece", "Dispose of synthetic textiles in the bin with the 'synthetic textile' label.", Type.SYNTETIC_TEXTILE, 8.7);
         createMaterial("Pure Merino Wool", "Dispose of organic waste in the bin with the 'organic waste' label.", Type.NATURAL_TEXTILE, 65); //impactValue = avg of 50 and 80.
 
         
