@@ -38,12 +38,30 @@ public class MaterialService{
 
    
         //Here we define which materials the user can select from in the program
-        createMaterial("PET Plastic", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.", Type.PLASTIC, 3.5);
-        createMaterial("HDPE Plastic", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.", Type.PAPER , 2.0 );
-        createMaterial("PVC Plastic", "Dispose of plastic waste in the bin 3 with the 'plastic packaging' label.", Type.PLASTIC, 2.1);
-        createMaterial("Recycled Paperboard", "Dispose of paper waste in the bin 2 with the 'paper packaging' label.", Type.PAPER , 0.50 );
+        createMaterial("PET Plastic", "Dispose of plastic waste in the bin with the 'plastic packaging' label.", Type.PLASTIC, 3.5);
+        createMaterial("HDPE Plastic", "Dispose of paper waste in the bin with the 'paper packaging' label.", Type.PAPER , 2.0 );
+        createMaterial("PVC Plastic", "Dispose of plastic waste in the bin with the 'plastic packaging' label.", Type.PLASTIC, 2.1);
+        createMaterial("Recycled Paperboard", "Dispose of paper waste in the bin with the 'paper packaging' label.", Type.PAPER , 0.50 );
+        
+        createMaterial("Virgin Aluminum", "Dispose of metal waste in the bin with the 'metal packaging' label.", Type.METAL , 12.0);
+        createMaterial("Recycled Aluminum", "Dispose of metal waste in the bin with the 'metal packaging' label.", Type.METAL , 1.5);
+        createMaterial("Virgin Steel", "Dispose of metal waste in the bin with the 'metal packaging' label.", Type.METAL , 2.2);
+        createMaterial("Recycled Steel", "Dispose of metal waste in the bin with the 'metal packaging' label.", Type.METAL , 0.4);
+
+        createMaterial("Virgin Glass", "Dispose of glass waste in the bin with the 'glass packaging' label.", Type.GLASS , 1.1);
+        createMaterial("Recycled Glass", "Dispose of glass waste in the bin with the 'glass packaging' label.", Type.GLASS , 0.64);
+
+        createMaterial("Sorona", "Dispose of synthetic textiles in the bin with the 'synthetic textile' label.", Type.SYNTETIC_TEXTILE , 3.3);
+        createMaterial("Natural Rubber", "Dispose of organic waste in the bin with the 'organic waste' label.", Type.ORGANIC , 1.3);
+
+        createMaterial("Fleece", "Dispose of synthetic textiles in the bin with the 'synthetic textile' label.", Type.SYNTETIC_TEXTILE, 8.7);
+        createMaterial("Pure Merino Wool", "Dispose of organic waste in the bin with the 'organic waste' label.", Type.NATURAL_TEXTILE, 65); //impactValue = avg of 50 and 80.
+
+        
+
        
        
+    
     }
 
     
