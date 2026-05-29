@@ -181,6 +181,12 @@ Weighted_Sum_Strategy.java <br>
 #### presentation/
 Menu.java <br>
 
+#### infrastructure/
+In_memory_repository_product.java <br>
+In_memory_repository_material.java <br>
+
+#### Our composition root -> Main.java
+
 ### 2.	ImpactCalculationStrategy interface 
 Impacts our business rules, and since it does, it belongs in the domain layer. If a class/interface contains business rules (calculates impact of product), the result of what we are trying to achieve is usually affected (the impact value of product will change depending on which implemented class we decide to inject into ProductApplicationService) and the way the result is reached is affected (we are likely going to do calculations with different fields/attributes to achieve different values).
 
