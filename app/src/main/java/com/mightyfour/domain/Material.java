@@ -1,17 +1,31 @@
 package com.mightyfour.domain;
 public class Material {
-private String material_name;
-private double impact_value; //not implemented yet
-private String recycling_instruction;
+private String materialName;
+private double impactValue; //not implemented yet
+private String recyclingInstruction;
+private Type type;
 
-    public Material(String material_name, String recycling_instruction){
-        this.material_name = material_name;
-        this.recycling_instruction = recycling_instruction;
-        impact_value = 0;
+    public Material(String materialName, String recyclingInstruction, Type type, double impactValue){
+        this.materialName = materialName;
+        this.recyclingInstruction = recyclingInstruction;
+        this.type = type;
+        this.impactValue = impactValue;
     }
 
     public String getName(){ //Getter
-        return material_name;
+        return materialName;
+    }
+
+    public Type getType(){
+        return type;
+    }
+
+    public String getInstruction(){ 
+        return recyclingInstruction;
+    }
+
+    public double getImpact(){
+        return impactValue;
     }
 }
 
