@@ -127,45 +127,6 @@ Represents the classification of a material within the recycling domain. It owns
 ### Lifespan 
 Represents the estimated durability of a product over time. It owns a single value expressing duration. It has no identity of its own and does not perform any logic, it exists purely as an immutable data descriptor attached to a Product.
 
-## Product – CRC Card
-### Responsibilities:
-Knows name, category, lifespan, materials
-Provides material list for impact calculation
-
-### Collaborators:
-Material
-ImpactCalculationStrategy
-RecyclingGuide
-
-
-## Material – CRC Card
-### Responsibilities:
-Knows name, impact value, recycling category/instruction
-Exposes its properties for others to use
-
-#### Collaborators:
-Product
-RecyclingGuide
-
-
-## ImpactCalculationStrategy – CRC Card
-### Responsibilities:
-Defines contract for calculating environmental impact
-Declares method all strategies must implement
-
-### Collaborators:
-Product
-Material
-
-
-## RecyclingGuide – CRC Card
-### Responsibilities:
-Provides recycling guidance for single and mixed materials
-Takes material(s) as input and returns guidance
-
-### Collaborators:
-Material
-
 ## Week 3: Design rationale
 
 ### UML diagram V2
