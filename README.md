@@ -1,3 +1,6 @@
+
+![CI](https://github.com/NascentKiosk/Sustainable-Product-and-Recycling-Management-System/actions/workflows/ci.yml/badge.svg)
+
 ## Sustainable Product and Recycling Management System
 
 ---

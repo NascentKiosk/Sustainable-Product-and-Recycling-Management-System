@@ -39,7 +39,7 @@ public class MaterialService{
    
         //Here we define which materials the user can select from in the program
         createMaterial("PET Plastic", "Dispose of plastic waste in the bin with the 'plastic packaging' label.", Type.PLASTIC, 3.5);
-        createMaterial("HDPE Plastic", "Dispose of paper waste in the bin with the 'paper packaging' label.", Type.PAPER , 2.0 );
+        createMaterial("HDPE Plastic", "Dispose of paper waste in the bin with the 'paper packaging' label.", Type.PLASTIC , 2.0 );
         createMaterial("PVC Plastic", "Dispose of plastic waste in the bin with the 'plastic packaging' label.", Type.PLASTIC, 2.1);
         createMaterial("Recycled Paperboard", "Dispose of paper waste in the bin with the 'paper packaging' label.", Type.PAPER , 0.50 );
         
