@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import com.mightyfour.application.MaterialService;
 import com.mightyfour.application.ApplicationService;
+import com.mightyfour.application.DisplayProductDetailsResult;
 import com.mightyfour.application.ListMaterialsResult;
 import com.mightyfour.application.ProvideGuidanceResult;
 import com.mightyfour.application.ProvideImpactValueResult;
@@ -79,8 +80,8 @@ public class Menu {
                     printOutput("Enter ID of product you wish to see the details of: ");
                     String product_id = readInput();
                 
-                
-                    printOutput(serviceApp.displayProductDetails(product_id));
+                    DisplayProductDetailsResult result = serviceApp.displayProductDetails(product_id);
+                    formatter.printDisplayProductDetailsResult(result);
                 }
                 //Here we will showcase recycling instructions of specified Product object
                 else if(user_input.equals("5")){

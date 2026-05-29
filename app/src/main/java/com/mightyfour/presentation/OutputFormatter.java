@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.mightyfour.application.ListMaterialsResult;
 import com.mightyfour.application.ProvideGuidanceResult;
 import com.mightyfour.application.ProvideImpactValueResult;
+import com.mightyfour.application.DisplayProductDetailsResult;
 
 public class OutputFormatter {
     public void printListMaterialsResult(ListMaterialsResult result){
@@ -30,5 +31,15 @@ public class OutputFormatter {
 
     public void printImpactValueResult(ProvideImpactValueResult result){
         System.out.println("Result of calculation: " + result.getResult());
+    }
+    
+    public void printDisplayProductDetailsResult(DisplayProductDetailsResult result){
+         String formattedString = "Name: " + result.getProductName() + "\n ID: " + result.getProductId() + "\n Category: " + result.getCategory()  + "\n Lifespan: " + result.getProductLifespanDuration() + "\n Materials: ";
+
+        for(String materialName : result.getMaterialNames()){
+            formattedString += "\n   - " + materialName;
+        }
+
+        System.out.println(formattedString);
     }
 }

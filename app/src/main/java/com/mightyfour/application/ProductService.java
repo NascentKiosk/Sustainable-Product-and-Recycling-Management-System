@@ -55,29 +55,22 @@ public class ProductService {
         return repo.findProduct(productId);
     }
 
-    public String retrieveProductDetails(UUID productId){
+    public RetrieveProductDetailsResult retrieveProductDetails(UUID productId){
         
         Product product = repo.findProduct(productId);
 
         String productName = product.getName();
 
-        String productLifespanDurationString = Double.toString(product.getLifespanDuration());
+        double productLifespanDuration = product.getLifespanDuration();
 
         ArrayList<Material> productMaterials = product.getMaterialsList();
-        ArrayList<String> productMaterialsString = new ArrayList<>();
-        for(Material material : productMaterials){
-            productMaterialsString.add(material.getName());
-        }
 
 
        
-        String tempString = "Name: " + productName + "\n ID: " + productId + "\n Category: " + product.getCategory()  + "\n Lifespan: " + productLifespanDurationString  + "\n Materials: ";
+        //String tempString = "Name: " + productName + "\n ID: " + productId + "\n Category: " + product.getCategory()  + "\n Lifespan: " + productLifespanDurationString  + "\n Materials: ";
 
-        for(String MaterialString : productMaterialsString){
-            tempString += "\n   - " + MaterialString;
-        }
 
-        return tempString; //switch to dto object
+        return new RetrieveProductDetailsResult(productName, productId, product.getCategory().toString(), productLifespanDuration, productMaterials);
     }
 
     public String retrieveProductsList(){
