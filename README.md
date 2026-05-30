@@ -758,8 +758,13 @@ The Presentation layer displays the final environmental impact value to the user
 - Recycling compliance tracking
 
 ---
+### 16 Final Uml Diagram
 
-## 16. Conclusion
+![Sequence Diagram](docs/finaluml.png)
+
+---
+
+## 17. Conclusion
 
 The Sustainable Product and Recycling Management System demonstrates clean software architecture, object-oriented design, use of the Strategy Pattern, automated testing, and maintainable development practices while addressing sustainability-focused business requirements.
 
