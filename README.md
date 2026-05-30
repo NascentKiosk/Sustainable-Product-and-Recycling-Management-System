@@ -657,7 +657,7 @@ No business logic is executed at this stage; the layer is responsible only for p
 
 ---
 
-## 16. Conclusion
+## 15. Conclusion
 
 The Sustainable Product and Recycling Management System demonstrates clean software architecture, object-oriented design, use of the Strategy Pattern, automated testing, and maintainable development practices while addressing sustainability-focused business requirements.
 
