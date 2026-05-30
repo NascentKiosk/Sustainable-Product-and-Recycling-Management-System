@@ -1,4 +1,3 @@
-
 @startuml
 
 title Calculate Environmental Impact Flow
@@ -9,49 +8,76 @@ participant "menu : Menu" as Menu
 participant "serviceApp : ApplicationService" as AppService
 participant "serviceP : ProductService" as ProductService
 participant "factory : ImpactStrategyFactory" as Factory
-participant "product : Product" as Product
-participant "result : ProvideImpactValueResult" as Result
+participant "strategy : ImpactCalculationStrategy" as Strategy
 
-User -> Menu : select option 6
+User -> Menu : Select option 6
 activate Menu
 
+' STEP 2 - Product ID Input
 Menu -> Menu : readInput()
 Menu --> Menu : productId_string
 
+' STEP 3
+Menu -> AppService : displayProductDetails(productId)
+activate AppService
+
+' STEP 4
+AppService -> ProductService : displayProductDetails(productId)
+activate ProductService
+
+' STEP 5
+ProductService -> ProductService : repo.findProduct(productId)
+ProductService --> AppService : DisplayProductDetailsResult
+
+deactivate ProductService
+
+AppService --> Menu : DisplayProductDetailsResult
+deactivate AppService
+
+' STEP 6 - Material Weights Input
+loop For each material displayed
+    Menu -> Menu : readInput(weight)
+    Menu -> Menu : materialWeights.put(material, weight)
+end
+
+' STEP 7 - Strategy Selection
 Menu -> Menu : readInput()
 Menu --> Menu : strategyNum
 
-Menu -> AppService : provideImpactValue(productId_string, strategyNum)
+' STEP 8
+Menu -> AppService : provideImpactValue(productId,\nstrategyNum,\nmaterialWeights)
 activate AppService
 
-AppService -> ProductService : calculateImpact(productId, strategyNum)
+' STEP 9
+AppService -> ProductService : calculateImpact(productId,\nstrategyNum,\nmaterialWeights)
 activate ProductService
 
+' STEP 10
 ProductService -> Factory : create(strategyNum)
 activate Factory
-Factory --> ProductService : ImpactCalculationStrategy
+
+Factory --> ProductService : strategy
 deactivate Factory
 
+' STEP 11
 ProductService -> ProductService : repo.findProduct(productId)
 ProductService --> ProductService : product
 
-ProductService -> Product : getMaterialsList()
-activate Product
-Product --> ProductService : ArrayList<Material>
+' STEP 12
+ProductService -> Strategy : calculateImpact(product,\nmaterialWeights)
+activate Strategy
 
-loop [for each material in List]
-    ProductService -> Product : getMaterialsList()
-    Product --> ProductService : material
-end
+Strategy --> ProductService : impactValue
+deactivate Strategy
 
-deactivate Product
-
+' STEP 13
 ProductService --> AppService : ProvideImpactValueResult
 deactivate ProductService
 
 AppService --> Menu : ProvideImpactValueResult
 deactivate AppService
 
+' STEP 14
 Menu -> Menu : formatter.printImpactValueResult(result)
 
 deactivate Menu
