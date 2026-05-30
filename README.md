@@ -73,23 +73,7 @@ The application starts a console-based interface that allows users to manage pro
 
 ---
 
-## 8. Running Tests
-
-Execute all tests:
-
-```bash
-./gradlew test
-```
-
-Generate test reports:
-
-```bash
-./gradlew test --info
-```
-
----
-
-## 9. Architectural Overview
+## 8. Architectural Overview
 
 The system follows a layered architecture to separate responsibilities and improve maintainability.
 
@@ -159,7 +143,7 @@ Responsibilities:
 - External integrations
 
 ---
-## 10. Strategy Design Pattern
+## 9. Strategy Design Pattern
 
 ### Purpose
 
@@ -211,7 +195,7 @@ The factory selects and creates the appropriate strategy implementation.
 
 ---
 
-## 11. Design Principles Applied
+## 10. Design Principles Applied
 
 ### SOLID Principles
 
@@ -238,9 +222,9 @@ The application separates:
 
 ---
 
-## 10. Diagrams
+## 11. Diagrams
 
-### 10. 1 UML Class Diagram
+### 11. 1 UML Class Diagram
 Location:
 
 ```text
@@ -313,7 +297,7 @@ Material
 
 ## Week 3: Design rationale
 
-### 10. 2 UML diagram V2
+### 11. 2 UML diagram V2
 <br>
 <br>
 
@@ -340,7 +324,7 @@ Additionally, on Lecture 3 slides, page 20, there are examples for each protocol
 3. The application depends on the ImpactCalculationStrategy interface, not any concrete implementation (satisfies DIP).
 
 
-## 11. Explanation of architectural decisions
+## 12. Explanation of architectural decisions
 
 <br>
 <br>
@@ -382,17 +366,17 @@ MaterialService receives an Material_repository via its constructor (constructor
 #### Dependency direction of Product_repository 
 ProductApplicationService receives a Product_repository via its constructor (constructor injection). Respects the dependency inversion: Application layer depends on Domain layer, as an interface belongs to the caller (in this case Domain layer) and not implementer (in our case Infrastructure layer). 
 
-## 12 Sequence Diagram and Documentation
+## 13 Sequence Diagram and Documentation
 This project includes a sequence diagram for the “Calculate Environmental Impact” use case.
 The diagram demonstrates how the Presentation layer (`Menu`) communicates with the Application layer (`ApplicationService` and `ProductService`) and finally the Domain layer (`Product`).
 The sequence diagram was created directly from the Java implementation to ensure that every lifeline and method call matches the code exactly.
 The diagram also models iteration behaviour using a UML `loop` fragment as required in Week 10.
 
-### 12.1  Sequence Diagram 
+### 13.1  Sequence Diagram 
 
 ![Sequence Diagram](docs/sequence-diagram.png)
 
-### 12.2 Sequence Diagram Walkthrough for Calculating Environmental Impact
+### 13.2 Sequence Diagram Walkthrough for Calculating Environmental Impact
 
 ### Step 1: User Starts Menu Interaction
 
@@ -614,7 +598,7 @@ No business logic is executed at this stage; the layer is responsible only for p
 
 ---
 
-## 13. Assumptions and Limitations
+## 14. Assumptions and Limitations
 
 ### Assumptions
 
@@ -630,7 +614,7 @@ No business logic is executed at this stage; the layer is responsible only for p
 
 ---
 
-## 14. Future Enhancements
+## 15. Future Enhancements
 
 - Database integration
 - Web-based UI
@@ -641,7 +625,7 @@ No business logic is executed at this stage; the layer is responsible only for p
 
 ---
 
-## 15. Conclusion
+## 16. Conclusion
 
 The Sustainable Product and Recycling Management System demonstrates clean software architecture, object-oriented design, use of the Strategy Pattern, automated testing, and maintainable development practices while addressing sustainability-focused business requirements.
 
