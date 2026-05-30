@@ -41,12 +41,20 @@ public class ApplicationService {
 
     }
 
-    public String displayProductDetails(String productId_string){
+    public DisplayProductDetailsResult displayProductDetails(String productId_string){
        
         UUID productId = UUID.fromString(productId_string);
-        String tempString = serviceP.retrieveProductDetails(productId);
+        RetrieveProductDetailsResult result = serviceP.retrieveProductDetails(productId);
+
+
+        ArrayList<Material> materialsList = result.getProductMaterials();
+        ArrayList<String> materialNames = new ArrayList<>();
+
+        for(Material material : materialsList){
+            materialNames.add(material.getName());
+        }
         
-        return tempString;// dto object
+        return new DisplayProductDetailsResult(result.getProductName(), productId_string, result.getCategory(), result.getProductLifespanDuration(), materialNames);
     }
     
     //public void calculateImpact(product){}

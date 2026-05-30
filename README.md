@@ -127,45 +127,6 @@ Represents the classification of a material within the recycling domain. It owns
 ### Lifespan 
 Represents the estimated durability of a product over time. It owns a single value expressing duration. It has no identity of its own and does not perform any logic, it exists purely as an immutable data descriptor attached to a Product.
 
-## Product – CRC Card
-### Responsibilities:
-Knows name, category, lifespan, materials
-Provides material list for impact calculation
-
-### Collaborators:
-Material
-ImpactCalculationStrategy
-RecyclingGuide
-
-
-## Material – CRC Card
-### Responsibilities:
-Knows name, impact value, recycling category/instruction
-Exposes its properties for others to use
-
-#### Collaborators:
-Product
-RecyclingGuide
-
-
-## ImpactCalculationStrategy – CRC Card
-### Responsibilities:
-Defines contract for calculating environmental impact
-Declares method all strategies must implement
-
-### Collaborators:
-Product
-Material
-
-
-## RecyclingGuide – CRC Card
-### Responsibilities:
-Provides recycling guidance for single and mixed materials
-Takes material(s) as input and returns guidance
-
-### Collaborators:
-Material
-
 ## Week 3: Design rationale
 
 ### UML diagram V2
@@ -219,6 +180,12 @@ Weighted_Sum_Strategy.java <br>
 
 #### presentation/
 Menu.java <br>
+
+#### infrastructure/
+In_memory_repository_product.java <br>
+In_memory_repository_material.java <br>
+
+#### Our composition root -> Main.java
 
 ### 2.	ImpactCalculationStrategy interface 
 Impacts our business rules, and since it does, it belongs in the domain layer. If a class/interface contains business rules (calculates impact of product), the result of what we are trying to achieve is usually affected (the impact value of product will change depending on which implemented class we decide to inject into ProductApplicationService) and the way the result is reached is affected (we are likely going to do calculations with different fields/attributes to achieve different values).
