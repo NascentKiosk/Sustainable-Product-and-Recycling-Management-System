@@ -23,7 +23,7 @@ public class ProductService {
     }
 
     public ProvideImpactValueResult calculateImpact(UUID productId, String strategyNum){
-        int result = (factory.create(strategyNum)).calculateImpact(repo.findProduct(productId));
+        double result = (factory.create(strategyNum)).calculateImpact(repo.findProduct(productId));
         return new ProvideImpactValueResult(result);
     }
 
