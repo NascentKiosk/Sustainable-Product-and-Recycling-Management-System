@@ -7,7 +7,7 @@ import com.mightyfour.domain.Material;
 import com.mightyfour.domain.Product;
 
 public class SimpleSumStrategy implements ImpactCalculationStrategy {
-    public double calculateImpact(Product product){
+    public double calculateImpact(Product product, ArrayList<Double> materialWeights){
 
         ArrayList<Material> materialsList = product.getMaterialsList();
 

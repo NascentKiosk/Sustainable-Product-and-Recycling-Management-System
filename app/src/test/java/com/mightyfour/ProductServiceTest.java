@@ -40,7 +40,7 @@ public class ProductServiceTest{
         product.addMaterial(fabricB);
 
         //ACT
-        ProvideImpactValueResult result = service.calculateImpact(product.getId(), "1"); 
+        ProvideImpactValueResult result = service.calculateImpact(product.getId(), "1", new ArrayList<Double>()); 
         double impactValue = result.getResult();
 
         //ASSERT
