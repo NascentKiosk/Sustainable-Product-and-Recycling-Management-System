@@ -5,21 +5,21 @@
 
 ---
 
-## Team Members & Roles
+## 1.  Team Members & Roles
 
 * Timothy Juma – Material domain & services
 * Karla Kanizaj – Impact calculation strategies
 * Peniel Mensah – Architecture & UML diagrams
 * Jannatul Bushra – Testing & CI setup
 
-## Project Overview
+## 2. Project Overview
 
 This project is a console-based application designed to support sustainable consumption and production (SDG 12). The system manages products and materials, calculates environmental impact using interchangeable strategies, and provides recycling guidance.  
 The focus is on object-oriented design, clean architecture, and testability.
 
 ---
 
-## Objectives
+## 3. Objectives
 
 * Apply object-oriented design principles
 * Implement the Strategy pattern for impact calculation
@@ -29,7 +29,7 @@ The focus is on object-oriented design, clean architecture, and testability.
 
 ---
 
-## Core Features
+## 4. Core Features
 
 * Product management (create, list, view details)
 * Material management (define reusable materials)
@@ -37,69 +37,202 @@ The focus is on object-oriented design, clean architecture, and testability.
 * Recycling guidance for single and mixed materials
 
 ---
+## 5. Technology Stack
 
-## Architecture
-
-The system follows a layered architecture:
-
-* **Presentation Layer**: Console-based UI (menus, input/output)
-* **Application Layer**: Services handling use cases
-* **Domain Layer**: Core business logic and models
-
----
-
-## Development Plan Week 1
-
-## Git Workflow
-
-* `main` branch is protected
-* All work is done in feature branches
-* Pull Requests are required for merging
-* At least one approval is required before merge
-
-### Branch naming :
-
-* `feature/product-management`
-* `feature/material-model`
-* `docs/requirements`
-* `docs/uml-diagram`
+| Component | Technology |
+|-----------|------------|
+| Language | Java 21 |
+| Build Tool | Gradle |
+| Testing | JUnit 5 |
+| CI/CD | GitHub Actions |
+| Design Modeling | UML / PlantUML |
 
 ---
 
-### Functional
+## 6. Building the Project
 
-* Create product
-* Assign materials to product
-* Define material with impact value
-* Calculate environmental impact
-* Provide recycling guidance
-* List and view products
+### Prerequisites
 
-### Non-functional
+- Java 21 or later
+- Gradle 8+ (or Gradle Wrapper)
 
-* Console-based application
-* Testable and maintainable design
-* Clear separation of concerns
-* Continuous Integration required
+### Build
 
----
+```bash
+./gradlew build
+```
 
-## Development Plan
-
-* Week 1–3: Analysis, design, and architecture (no business logic)
-* Week 4+: Implementation and testing
+The build process compiles the application and executes all automated tests.
 
 ---
 
-## Documentation
+## 7. Running the Application
 
-* UML class diagram
-* Sequence diagram
-* Strategy pattern explanation
+```bash
+./gradlew run
+```
+
+The application starts a console-based interface that allows users to manage products, materials, environmental impact calculations, and recycling guidance.
 
 ---
 
-## Development Plan Week 2
+## 8. Architectural Overview
+
+The system follows a layered architecture to separate responsibilities and improve maintainability.
+
+### Presentation Layer
+
+Responsible for user interaction.
+
+Examples:
+
+- Menu
+- OutputFormatter
+- Console UI classes
+
+Responsibilities:
+
+- Receive user input
+- Display output
+- Delegate business operations to services
+
+### Application Layer
+
+Coordinates use cases and business workflows.
+
+Examples:
+
+- ProductService
+- MaterialService
+- RecyclingGuidanceService
+
+Responsibilities:
+
+- Execute business operations
+- Validate requests
+- Coordinate domain objects
+
+### Domain Layer
+
+Contains core business rules and entities.
+
+Examples:
+
+- Product
+- Material
+- RecyclingGuidance
+- ImpactCalculationStrategy
+
+Responsibilities:
+
+- Business logic
+- Domain validation
+- Environmental impact calculations
+
+### Infrastructure Layer
+
+Provides technical implementations.
+
+Examples:
+
+- In-memory repositories
+- Repository implementations
+- Data persistence support
+
+Responsibilities:
+
+- Data storage
+- Repository implementations
+- External integrations
+
+---
+## 9. Strategy Design Pattern
+
+### Purpose
+
+The Strategy Pattern allows the application to switch environmental impact calculation algorithms at runtime without changing the client code.
+
+### Strategy Interface
+
+```java
+ImpactCalculationStrategy
+```
+
+The interface defines the contract used by all environmental impact calculation algorithms.
+
+### Concrete Strategies
+
+Examples:
+
+- SimpleSumStrategy
+- WeightedSumStrategy
+
+Each strategy implements a different environmental impact calculation method.
+
+### Factory Integration
+
+The project uses:
+
+```java
+ImpactStrategyFactory
+DefaultImpactStrategyFactory
+```
+
+The factory selects and creates the appropriate strategy implementation.
+
+### Workflow
+
+1. User selects a calculation method.
+2. Factory creates the required strategy.
+3. ProductService receives the strategy.
+4. Strategy performs the calculation.
+5. Result is returned to the user.
+
+### Benefits
+
+- Open/Closed Principle compliance
+- Easy addition of new algorithms
+- Reduced coupling
+- Improved maintainability
+- Better unit test coverage
+
+---
+
+## 10. Design Principles Applied
+
+### SOLID Principles
+
+#### Single Responsibility Principle
+
+Each class has a focused responsibility.
+
+#### Open/Closed Principle
+
+New calculation strategies can be added without modifying existing services.
+
+#### Dependency Inversion Principle
+
+Services depend on interfaces rather than concrete implementations.
+
+### Separation of Concerns
+
+The application separates:
+
+- User Interface
+- Business Logic
+- Domain Rules
+- Data Access
+
+---
+
+## 11. Diagrams
+
+### 11. 1 UML Class Diagram
+Location:
+
+```text
+docs/requirements/conceptual_uml_class_diagram.png
+```
 <br>
 <br>
 
@@ -128,7 +261,7 @@ Represents the estimated durability of a product over time. It owns a single val
 
 ## Week 3: Design rationale
 
-### UML diagram V2
+### 11. 2 UML diagram V2
 <br>
 <br>
 
@@ -155,7 +288,7 @@ Additionally, on Lecture 3 slides, page 20, there are examples for each protocol
 3. The application depends on the ImpactCalculationStrategy interface, not any concrete implementation (satisfies DIP).
 
 
-## Week 4: Explanation of architectural decisions
+## 12. Explanation of architectural decisions
 
 <br>
 <br>
@@ -281,58 +414,169 @@ The diagram demonstrates how the Presentation layer (`Menu`) communicates with t
 The sequence diagram was created directly from the Java implementation to ensure that every lifeline and method call matches the code exactly.
 The diagram also models iteration behaviour using a UML `loop` fragment as required in Week 10.
 
-### Diagram Files
+### 13.1  Sequence Diagram 
 
 ![Sequence Diagram](docs/sequence-diagram.png)
 
+### 13.2 Sequence Diagram Walkthrough for Calculating Environmental Impact
+
 # Sequence Diagram Walkthrough for Calculating Environmental Impact
 
-## Step 1: User Starts Menu Interaction
+## #STEP 1 – User Starts Menu Interaction
 
-**File Location:** `app/src/main/java/com/mightyfour/presentation/Menu.java`  
-**Method:** `public void menuLoop()`
+### File Location
+
+`app/src/main/java/com/mightyfour/presentation/Menu.java`
+
+### Method
+
+```java
+public void menuLoop()
+```
 
 ### What Happens
-- Displays menu options
-- Reads user input
-- Routes functionality
+
+* Displays menu options
+* Reads user input
+* Routes functionality
 
 ### Matching Code
 
 ```java
 user_input = readInput();
+```
 
-if (user_input.equals("6"))
+and
+
+```java
+if(user_input.equals("6"))
 ```
 
 ### Explanation
 
-This is the entry point for the Environmental Impact use case. When the user selects option `6`, the `Menu` class initiates the impact calculation workflow.
-The `Menu` belongs to the **Presentation Layer** and is responsible only for coordinating user interaction.
+This is the entry point for the environmental impact use case. When the user selects option 6, the Menu class begins the environmental impact workflow.
 
 ---
 
-## Step 2: Product ID Input
+### STEP 2 – Product ID Input
 
-**File Location:** `presentation/Menu.java`
+### File Location
+
+`presentation/Menu.java`
 
 ### Matching Code
 
 ```java
 printOutput("Please enter product ID: ");
-String product_Id_string = readInput();
+String productId_string = readInput();
 ```
 
 ### Explanation
 
-The `Menu` prompts the user for a product identifier. The value is stored in `product_Id_string` and passed to the application layer.
-In the sequence diagram, this is represented by the self-call responsible for collecting user input.
+The Menu prompts the user for a product identifier. This identifier will be used to retrieve the selected product.
 
 ---
 
-## Step 3: Strategy Input
+### STEP 3 – Menu Requests Product Details
 
-**File Location:** `presentation/Menu.java`
+### File Location
+
+`presentation/Menu.java`
+
+### Matching Code
+
+```java
+DisplayProductDetailsResult productDetails =
+    serviceApp.displayProductDetails(productId);
+```
+
+### UML Arrow
+
+```text
+Menu -> AppService : displayProductDetails(productId)
+```
+
+### Explanation
+
+Before calculating environmental impact, the Menu requests product details from the Application layer. This allows the UI to display the materials contained in the selected product so that the user can provide material weights.
+
+---
+
+### STEP 4 – ApplicationService Retrieves Product Details
+
+### File Location
+
+`application/ApplicationService.java`
+
+### Matching Code
+
+```java
+return serviceP.displayProductDetails(productId);
+```
+
+### UML Arrow
+
+```text
+AppService -> ProductService : displayProductDetails(productId)
+```
+
+### Explanation
+
+ApplicationService forwards the request to ProductService, maintaining the layered architecture.
+
+---
+
+### STEP 5 – Product Retrieved From Repository
+
+### File Location
+
+`application/ProductService.java`
+
+### Matching Code
+
+```java
+repo.findProduct(productId)
+```
+
+### UML Arrow
+
+```text
+ProductService -> ProductService : repo.findProduct(productId)
+```
+
+### Explanation
+
+The ProductService retrieves the product so that its materials can be displayed to the user.
+
+---
+
+### STEP 6 – Material Weights Input
+
+### File Location
+
+`presentation/Menu.java`
+
+### Matching Code
+
+The Menu collects weights for the materials displayed from the product details.
+
+Example:
+
+```java
+materialWeights.put(materialName, weight);
+```
+
+### Explanation
+
+The user enters weight values corresponding to the materials in the selected product.
+
+---
+
+### STEP 7 – Strategy Selection
+
+### File Location
+
+`presentation/Menu.java`
 
 ### Matching Code
 
@@ -343,79 +587,79 @@ String strategyNum = readInput();
 
 ### Explanation
 
-The user selects the environmental impact calculation strategy. This value is later forwarded to `ApplicationService`.
+The user selects the impact calculation strategy.
 
 ---
 
-## Step 4: Menu Delegates to ApplicationService
+### STEP 8 – Menu Delegates Impact Calculation
 
-**File Location:** `presentation/Menu.java`
+### File Location
+
+`presentation/Menu.java`
 
 ### Matching Code
 
 ```java
 ProvideImpactValueResult result =
-    serviceApp.provideImpactValue(productId_string, strategyNum);
+    serviceApp.provideImpactValue(
+        productId_string,
+        strategyNum,
+        materialWeights
+    );
 ```
 
 ### UML Arrow
 
 ```text
-Menu -> AppService : provideImpactValue(productId_string, strategyNum)
+Menu -> AppService :
+provideImpactValue(productId, strategyNum, materialWeights)
 ```
 
 ### Explanation
 
-This is the first cross-layer interaction. The Presentation Layer delegates the request to the Application Layer rather than performing any calculations itself.
+The Presentation layer delegates the calculation request to the Application layer.
 
 ---
 
-## Step 5: ApplicationService Delegates to ProductService
+### STEP 9 – ApplicationService Delegates to ProductService
 
-**File Location:** `application/ApplicationService.java`
+### File Location
 
-**Method**
-
-```java
-public ProvideImpactValueResult provideImpactValue(
-    String productId_string,
-    String strategyNum)
-```
+`application/ApplicationService.java`
 
 ### Matching Code
 
 ```java
-return serviceP.calculateImpact(productId, strategyNum);
+return serviceP.calculateImpact(
+    productId,
+    strategyNum,
+    materialWeights
+);
 ```
 
 ### UML Arrow
 
 ```text
-AppService -> ProductService : calculateImpact(productId, strategyNum)
+AppService -> ProductService :
+calculateImpact(productId, strategyNum, materialWeights)
 ```
 
 ### Explanation
 
-`ApplicationService` coordinates the use case and forwards the request to `ProductService`, maintaining a clear separation of concerns.
+ApplicationService coordinates the workflow and forwards the request to ProductService.
 
 ---
 
-## Step 6: ProductService Uses Factory
+### STEP 10 – ProductService Uses Factory
 
-**File Location:** `application/ProductService.java`
+### File Location
 
-**Method**
-
-```java
-public ProvideImpactValueResult calculateImpact(
-    UUID productId,
-    String strategyNum)
-```
+`application/ProductService.java`
 
 ### Matching Code
 
 ```java
-factory.create(strategyNum);
+factory.create(strategyNum)
 ```
 
 ### UML Arrow
@@ -427,18 +671,19 @@ ProductService -> Factory : create(strategyNum)
 ### Explanation
 
 The factory selects the appropriate environmental impact calculation strategy.
-This demonstrates the use of both the **Factory Pattern** and the **Strategy Pattern**.
 
 ---
 
-## Step 7: Product Retrieved from Repository
+### STEP 11 – Product Retrieved For Calculation
 
-**File Location:** `application/ProductService.java`
+### File Location
+
+`application/ProductService.java`
 
 ### Matching Code
 
 ```java
-repo.findProduct(productId);
+repo.findProduct(productId)
 ```
 
 ### UML Arrow
@@ -449,62 +694,116 @@ ProductService -> ProductService : repo.findProduct(productId)
 
 ### Explanation
 
-Before calculating the environmental impact, `ProductService` retrieves the product from the repository.
+The ProductService retrieves the product before passing it to the selected strategy.
 
 ---
 
-## Step 8: Strategy Calculates Impact
+### STEP 12 – Strategy Calculates Impact
 
-### Important Finding
-The actual calculation is performed through:
+### Matching Code
+
 ```java
 (factory.create(strategyNum))
-    .calculateImpact(repo.findProduct(productId));
+    .calculateImpact(
+        repo.findProduct(productId),
+        materialWeights
+    );
 ```
-This means that `ProductService` does **not** directly iterate through materials.
 
-### Potential Locations for Calculation Logic
+### UML Arrow
 
-- `application/SimpleSumStrategy.java`
-- `application/WeightedSumStrategy.java`
+```text
+ProductService -> Strategy :
+calculateImpact(product, materialWeights)
+```
 
 ### Explanation
-Any loops or calculations involving product materials should be verified inside the strategy implementations.
-The sequence diagram should reflect the actual implementation and avoid assuming that iteration occurs within `ProductService`.
+
+The selected strategy performs the environmental impact calculation using the product information and user-provided material weights.
 
 ---
 
-## Step 9: Result Returned
+### STEP 13 – Result Returned
 
-**File Location:** `application/ProductService.java`
+### File Location
+
+`application/ProductService.java`
+
 ### Matching Code
+
 ```java
 return new ProvideImpactValueResult(result);
 ```
+
 ### UML Arrow
+
 ```text
-ProductService --> AppService : ProvideImpactValueResult
+ProductService --> AppService :
+ProvideImpactValueResult
 ```
+
 ### Explanation
-The calculated environmental impact value is wrapped in a `ProvideImpactValueResult` object and returned to the Application Layer.
+
+The calculated impact value is wrapped in a result object and returned.
 
 ---
 
-## Step 10: Menu Displays Result
+### STEP 14 – Menu Displays Result
 
-**File Location:** `presentation/Menu.java`
+### File Location
+
+`presentation/Menu.java`
+
 ### Matching Code
+
 ```java
 formatter.printImpactValueResult(result);
 ```
-### UML Arrow
-```text
-Menu -> Menu : formatter.printImpactValueResult(result)
-```
-### Explanation
-The Presentation Layer displays the calculated result to the user.
-No business logic is executed at this stage; the layer is responsible only for presenting information.
 
+### UML Arrow
+
+```text
+Menu -> Menu :
+formatter.printImpactValueResult(result)
+```
+
+### Explanation
+
+The Presentation layer displays the final environmental impact value to the user.
+
+
+
+
+## 14. Assumptions and Limitations
+
+### Assumptions
+
+- Products contain one or more materials.
+- Environmental impact calculations are strategy-driven.
+- Data is stored in memory unless persistence is added.
+
+### Limitations
+
+- Console-based interface only.
+- No database persistence.
+- No authentication or authorization.
+
+---
+
+## 15. Future Enhancements
+
+- Database integration
+- Web-based UI
+- REST API support
+- Additional impact calculation strategies
+- Reporting and analytics dashboard
+- Recycling compliance tracking
+
+---
+
+## 16. Conclusion
+
+The Sustainable Product and Recycling Management System demonstrates clean software architecture, object-oriented design, use of the Strategy Pattern, automated testing, and maintainable development practices while addressing sustainability-focused business requirements.
 
 
 
