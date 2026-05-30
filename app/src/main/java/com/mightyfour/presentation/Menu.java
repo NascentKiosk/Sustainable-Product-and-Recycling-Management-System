@@ -102,8 +102,33 @@ public class Menu {
                     String productId = readInput();
                     printOutput("Enter 1 for simple sum strategy, or enter 2 for weighted sum strategy: ");
                     String strategyNum = readInput();
+        
+                    DisplayProductDetailsResult productDetails = serviceApp.displayProductDetails(productId);
+
+                    printOutput("Now enter weight contribution for each material: \n");
 
                     ArrayList<Double> materialWeights = new ArrayList<>();
+
+
+                    for(String materialName : productDetails.getMaterialNames()) {
+                        
+                        boolean inputIsValid = false;
+                        while(!inputIsValid){
+                            printOutput("Enter weight for " + materialName + ": ");
+                            String userInput = readInput();
+                            try{
+                                double weight = Double.parseDouble(userInput);
+                                materialWeights.add(weight);
+                                inputIsValid = true;
+                            }
+                            catch(Exception e){
+                                printOutput("Error: Please enter a valid number.");
+                            }
+
+                        }
+                        
+                    }
+
                     ProvideImpactValueResult result = serviceApp.provideImpactValue(productId, strategyNum, materialWeights);
                     formatter.printImpactValueResult(result);
             
