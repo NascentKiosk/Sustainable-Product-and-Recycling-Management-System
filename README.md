@@ -408,6 +408,20 @@ Group conclusion: Yes. Scanner is only used in the presentation layer (and in in
 
 Group conclusion: No. There are no static utility calls, no printing, and no random behavior inside the domain or service classes. The code relies mainly on service collaboration and repository access rather than hidden static dependencies. This keeps the code predictable and easy to test.
 
+## WEEK 7 - Design Patterns
+
+### Strategy Pattern:
+
+The main issue we faced was that the environmental impact calculation is not a fixed
+formula, as we are aware that over time we are going to introduce at least two different types of formulas. If we had placed all calculation logic directly inside the Product class or inside one
+large method, we would quickly end up with a long list of if/switch statements. Every time a new impact calculation method for a Product object is added, we would be forced to modify much of the existing code. This breaks the Open/Closed Principle and makes the system harder to maintain. To avoid this, we introduced the Strategy pattern. Instead of one class trying to
+handle every possible calculation, we created separate strategy classes: Simple Sum Strategy
+and Weighted Sum Strategy. Each class represents a different algorithm for calculating environmental impact. This isolates the variation point and keeps the rest of the system stable. The pattern was appropriate because the project has different algorithms for the same tasks. Calculation for the class Product is performed separately. With this improvement,the code is flexible, cleaner and there is no SRP Violation. Without the strategy pattern, our program would be tightly coupled, with poor ability to handle scaling of requirements, and a very difficult time testing. 
+
+### Factory Pattern:
+
+Because we have applied a Factory pattern to our program, we reduce the amount of code that we will need to modify, therefore most classes will remain untouched (which respects OCP). In the future, if we decide to implement a new ImpactCalculationStrategy class, the only changes necessary will be adding a new class, updating DefaultImpactStrategyFactory class, and updating Menu class in order to communicate to user which calculation strategies are available. The user selects which strategy will be used once they enter 6 in reference to the available options in menuLoop(). The pattern was appropriate in order to successfully implement the workflow for option 6 (calculate impact value of a Product object). We needed to find a way/pattern that would help us keep presentation layer concerns and concerns of other layers separate. As we have two different implementations of ImpactCalculationStrategy that we are going to use interchangeably, one centralized creation point makes the code cleaner. Now all instances of classes that implement ImpactCalculationStrategy are instantiated in the same place (class) and therefore convenient to understand, which means the construction logic is centralized and creation rules are easier to modify. Additionally, all instances of classes that implement ImpactCalculationStrategy are created by calling the same method. This improves SRP and ensures that we do not have multiple creation statements for the same object in different places of our program, which means that the Factory pattern has helped us reduce duplication in our program. Menu knows nothing about ImpactStrategyFactory, SimpleSumStrategy or WeightedSumStrategy, it only passes productId and strategy choice in string form to ApplicationService. Thanks to the Factory pattern, UI classes successfully stay decoupled from concrete types. Without the factory pattern, creation logic would be mixed with UI flow, which weakens the respect for SRP in our program.
+
 ## Week 10 - Sequence Diagram and Documentation
 This project includes a sequence diagram for the “Calculate Environmental Impact” use case.
 The diagram demonstrates how the Presentation layer (`Menu`) communicates with the Application layer (`ApplicationService` and `ProductService`) and finally the Domain layer (`Product`).
