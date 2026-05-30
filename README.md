@@ -812,4 +812,32 @@ The Sustainable Product and Recycling Management System demonstrates clean softw
 
 
 
+## Week 12: Reflection
+
+When we look back at how this project started, it honestly feels like we were just trying to get things to work. Architecture, patterns, layering, and clean design principles all felt abstract in the beginning. But as the codebase grew, we started to see why these things matter. This reflection is us being honest about what we learned, what we struggled with, and how our design evolved. Layered Architecture Our architecture did not appear perfectly from day one. It evolved commit by commit. Early on, we followed the UML from week 4, which already hinted at a layered structure. But the real understanding came later, when things started breaking. We eventually settled into four clear layers: 
+
+Presentation layer: menu and outputFormatter. These only handle input/output. For example, when the user enters option 5, the menu calls applicationService.provideGuidance() and then passes the result to outputFormatter. 
+
+Application layer: applicationService, productService, materialService, recyclingGuidanceService. These coordinate use cases. 
+
+Domain layer: product, material, category, type, and the strategy interfaces. This is where the actual rules live. 
+
+Infrastructure layer: Contains implementations of interfaces in domain layer.
+
+### Refactor: Splitting ProductApplicationService 
+One of the most important improvements we made was splitting productApplicationService into productService and applicationService. The original class had accumulated too many responsibilities: orchestrating use cases, handling product operations, interacting with repositories, assigning categories, and preparing data for the presentation layer. After the refactor, productService became responsible for operations directly related to the product entity, such as retrieving products, adding materials, and formatting product details. Meanwhile, applicationService became the orchestrator of use cases. For example, when creating a product, it retrieves a material from materialService, delegates creation to productService, and then calls recyclingGuidanceService to assign a category. We also updated main accordingly. Instead of instantiating the old productApplicationService, it now creates a productService using repositories, and then creates an applicationService using productService, materialService, and recyclingGuidanceService. The menu class now receives only applicationService, outputFormatter, and scanner, which keeps the presentation layer simple.
+
+### Object-Oriented Design and Clean Architecture 
+Many of our decisions were rooted in object-oriented design, even before we fully understood the theory. For example, we moved the logic for checking duplicate materials into the product entity using canAddMaterial(), because the product should know its own rules. 1We also saw clean architecture ideas emerge naturally. The presentation layer never touches domain objects directly. Instead, it communicates through applicationService. The domain layer stays pure and does not depend on anything outside itself. For example, productService depends on productRepository, but the domain classes like product and material do not know anything about repositories. 
+
+### Why RecyclingGuidance Is a Normal Class
+We discussed whether recyclingGuidance should be an interface, but for our project it did not make sense. We do not expect multiple implementations. All we need is a single class that returns a guidance message based on the material type’s category. Keeping it as a normal class is the simplest design. What matters is that recyclingGuidanceService depends on an abstraction. We inject a recyclingGuidanceFactory (the interface), and the actual implementation is provided from the outside. When the service needs guidance, it calls factory.create(). This keeps the dependency direction correct. Strategy Pattern The Strategy pattern became necessary when we introduced multiple impact calculation methods. Instead of a giant if-else chain, we created: impactCalculationStrategy with two implementations: simpleSumStrategy, weightedSumStrategy This made the code cleaner and easier to extend. Abstract Factory Pattern We used Abstract Factory in two places: • impactStrategyFactory — creates the correct impact strategy. • recyclingGuidanceFactory — creates the correct recycling guidance object based on material type. Without these factories, the service layer would have turned into a giant switch-case. 
+
+### Technical Debt 
+We are not pretending the code is perfect. Some things are still messy: Menu is still too large and handles input validation that could be extracted into helper classes, and error handling is basic. For example, converting a string to a UUID throws exceptions that are caught in the menu instead of being validated earlier. Plus, our naming convention is lower camelCase, but earlier commits were inconsistent before we aligned on it. Additionally, some responsibilities could still be moved to the domain layer. For example: Checking whether a product’s lifespan duration is valid. Verifying that a material name is not empty or malformed. These rules describe what a valid product or material is, so they belong inside the domain layer. 
+
+### What We Learned 
+The biggest thing we learned is that architecture is not something you “add at the end.” It grows with the project. Every time we hit a wall, we had to rethink our design. Patterns like Strategy and Abstract Factory stopped being abstract ideas and became tools that solved real problems. In the end, we are proud of how the system turned out. Not because it is perfect, but because we can look at it and say: “Yes, we understand why it looks like this.”
+
+
 
