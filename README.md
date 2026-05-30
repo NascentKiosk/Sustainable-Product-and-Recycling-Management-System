@@ -55,16 +55,8 @@ The focus is on object-oriented design, clean architecture, and testability.
 
 ### Build
 
-Linux / macOS
-
 ```bash
 ./gradlew build
-```
-
-Windows
-
-```cmd
-gradlew.bat build
 ```
 
 The build process compiles the application and executes all automated tests.
@@ -73,16 +65,8 @@ The build process compiles the application and executes all automated tests.
 
 ## 7. Running the Application
 
-Linux / macOS
-
 ```bash
 ./gradlew run
-```
-
-Windows
-
-```cmd
-gradlew.bat run
 ```
 
 The application starts a console-based interface that allows users to manage products, materials, environmental impact calculations, and recycling guidance.
