@@ -22,8 +22,8 @@ public class ProductService {
         this.factory = factory;
     }
 
-    public ProvideImpactValueResult calculateImpact(UUID productId, String strategyNum){
-        double result = (factory.create(strategyNum)).calculateImpact(repo.findProduct(productId));
+    public ProvideImpactValueResult calculateImpact(UUID productId, String strategyNum, ArrayList<Double> materialWeights){
+        double result = (factory.create(strategyNum)).calculateImpact(repo.findProduct(productId), materialWeights);
         return new ProvideImpactValueResult(result);
     }
 
