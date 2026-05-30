@@ -1,6 +1,8 @@
 package com.mightyfour.presentation;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.ArrayList;
+
 import com.mightyfour.application.MaterialService;
 import com.mightyfour.application.ApplicationService;
 import com.mightyfour.application.DisplayProductDetailsResult;
@@ -100,7 +102,9 @@ public class Menu {
                     String productId = readInput();
                     printOutput("Enter 1 for simple sum strategy, or enter 2 for weighted sum strategy: ");
                     String strategyNum = readInput();
-                    ProvideImpactValueResult result = serviceApp.provideImpactValue(productId, strategyNum);
+
+                    ArrayList<Double> materialWeights = new ArrayList<>();
+                    ProvideImpactValueResult result = serviceApp.provideImpactValue(productId, strategyNum, materialWeights);
                     formatter.printImpactValueResult(result);
             
                 }

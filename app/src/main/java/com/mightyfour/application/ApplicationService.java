@@ -101,9 +101,9 @@ public class ApplicationService {
 
     }
 
-    public ProvideImpactValueResult provideImpactValue(String productId_string, String strategyNum){
+    public ProvideImpactValueResult provideImpactValue(String productId_string, String strategyNum, ArrayList<Double> materialWeights){
         UUID productId = UUID.fromString(productId_string);
-        return serviceP.calculateImpact(productId, strategyNum);
+        return serviceP.calculateImpact(productId, strategyNum, materialWeights);
     }
 
 }

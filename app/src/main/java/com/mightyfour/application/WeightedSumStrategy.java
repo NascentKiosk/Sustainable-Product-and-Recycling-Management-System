@@ -2,9 +2,10 @@ package com.mightyfour.application;
 
 import com.mightyfour.domain.ImpactCalculationStrategy;
 import com.mightyfour.domain.Product;
+import java.util.ArrayList;
 
 public class WeightedSumStrategy implements ImpactCalculationStrategy{
-    public int calculateImpact(Product product){
-        return 0; //Not implemented yet.
+    public double calculateImpact(Product product, ArrayList<Double> materialWeights){
+        return 0.0; //Not implemented yet.
     }
 }
