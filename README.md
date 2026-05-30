@@ -203,6 +203,9 @@ MaterialService receives an Material_repository via its constructor (constructor
 #### Dependency direction of Product_repository 
 ProductApplicationService receives a Product_repository via its constructor (constructor injection). Respects the dependency inversion: Application layer depends on Domain layer, as an interface belongs to the caller (in this case Domain layer) and not implementer (in our case Infrastructure layer). 
 
+## Week 5 - Console UI and Separation of Concerns
+No required deliverables for documentation other than the code.
+
 ## Week 10 - Sequence Diagram and Documentation
 This project includes a sequence diagram for the “Calculate Environmental Impact” use case.
 The diagram demonstrates how the Presentation layer (`Menu`) communicates with the Application layer (`ApplicationService` and `ProductService`) and finally the Domain layer (`Product`).
