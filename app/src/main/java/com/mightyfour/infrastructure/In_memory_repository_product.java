@@ -1,10 +1,12 @@
 package com.mightyfour.infrastructure;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.mightyfour.domain.Product;
 import com.mightyfour.domain.ProductRepository;
 
+//Taken from lecture 4
 public class In_memory_repository_product implements ProductRepository {
     private List<Product> store = new ArrayList<>();
 
@@ -15,6 +17,18 @@ public class In_memory_repository_product implements ProductRepository {
 
     public List<Product> findAll(){
         return store;
+    }
+
+    public Product findProduct(UUID productId){
+
+        for(Product product : store){
+            if(product.getId().equals(productId)){
+                return product;
+            }
+        }
+
+        throw new NullPointerException("Product with id '" + productId +  "' not found.");
+        
     }
 
    

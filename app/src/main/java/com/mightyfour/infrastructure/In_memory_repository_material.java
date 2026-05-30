@@ -17,4 +17,19 @@ public class In_memory_repository_material implements MaterialRepository {
         return store;
     }
 
+    public Material findMaterial(String material_name){
+
+
+        for(Material material : store){
+            if(material.getName().equals(material_name)){
+                return material;
+            }
+        }
+
+    
+        throw new NullPointerException("Material with name '" + material_name + "' not found.");
+    
+
+    }
+
 }

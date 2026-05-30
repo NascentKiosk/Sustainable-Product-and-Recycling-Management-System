@@ -1,0 +1,59 @@
+
+@startuml
+
+title Calculate Environmental Impact Flow
+
+actor User
+
+participant "menu : Menu" as Menu
+participant "serviceApp : ApplicationService" as AppService
+participant "serviceP : ProductService" as ProductService
+participant "factory : ImpactStrategyFactory" as Factory
+participant "product : Product" as Product
+participant "result : ProvideImpactValueResult" as Result
+
+User -> Menu : select option 6
+activate Menu
+
+Menu -> Menu : readInput()
+Menu --> Menu : productId_string
+
+Menu -> Menu : readInput()
+Menu --> Menu : strategyNum
+
+Menu -> AppService : provideImpactValue(productId_string, strategyNum)
+activate AppService
+
+AppService -> ProductService : calculateImpact(productId, strategyNum)
+activate ProductService
+
+ProductService -> Factory : create(strategyNum)
+activate Factory
+Factory --> ProductService : ImpactCalculationStrategy
+deactivate Factory
+
+ProductService -> ProductService : repo.findProduct(productId)
+ProductService --> ProductService : product
+
+ProductService -> Product : getMaterialsList()
+activate Product
+Product --> ProductService : ArrayList<Material>
+
+loop [for each material in List]
+    ProductService -> Product : getMaterialsList()
+    Product --> ProductService : material
+end
+
+deactivate Product
+
+ProductService --> AppService : ProvideImpactValueResult
+deactivate ProductService
+
+AppService --> Menu : ProvideImpactValueResult
+deactivate AppService
+
+Menu -> Menu : formatter.printImpactValueResult(result)
+
+deactivate Menu
+
+@enduml
