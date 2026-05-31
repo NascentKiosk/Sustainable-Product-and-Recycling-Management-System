@@ -1,8 +1,11 @@
 package com.mightyfour.presentation;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.HashMap;
 import java.util.ArrayList;
 import com.mightyfour.application.ListMaterialsResult;
+import com.mightyfour.application.ListProductsResult;
 import com.mightyfour.application.ProvideGuidanceResult;
 import com.mightyfour.application.ProvideImpactValueResult;
 import com.mightyfour.application.DisplayProductDetailsResult;
@@ -41,5 +44,13 @@ public class OutputFormatter {
         }
 
         System.out.println(formattedString);
+    }
+
+    public void printListProductsResult(ListProductsResult result){
+        HashMap<UUID, String> productNamesAndUUIDs = result.getProductNamesAndUUIDs();
+
+        for(UUID i : productNamesAndUUIDs.keySet()) {
+          System.out.println("ID: " + i + "\n Name: " + productNamesAndUUIDs.get(i));
+        }
     }
 }

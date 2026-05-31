@@ -7,6 +7,7 @@ import com.mightyfour.application.MaterialService;
 import com.mightyfour.application.ApplicationService;
 import com.mightyfour.application.DisplayProductDetailsResult;
 import com.mightyfour.application.ListMaterialsResult;
+import com.mightyfour.application.ListProductsResult;
 import com.mightyfour.application.ProvideGuidanceResult;
 import com.mightyfour.application.ProvideImpactValueResult;
 
@@ -75,7 +76,8 @@ public class Menu {
                 else if(user_input.equals("3")){
                     //Here we list all products stored in repo
                     printOutput("List of current products: \n");
-                    printOutput(serviceApp.listProducts());
+                    ListProductsResult result = serviceApp.listProducts();
+                    formatter.printListProductsResult(result);
                 }
                 //Here we show all details of a product
                 else if(user_input.equals("4")){

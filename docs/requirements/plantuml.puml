@@ -1,0 +1,326 @@
+@startuml
+' ===========================
+'    COMPOSITION ROOT
+' ===========================
+class Main {
+    +main(args : String[]) : void
+}
+' ===========================
+'    INFRASTRUCTURE LAYER
+' ===========================
+
+class DefaultImpactStrategyFactory{
+ + strategy : ImpactCalculationStrategy
+}
+class DefaultRecyclingGuidanceFactory
+
+class In_memory_repository_material{
+ - store : ArrayList<Material>
+ + save(material : Material): void
+ + findAll() : List<Material>
+ + findProduct(material_name : String): Material
+
+}
+class In_memory_repository_product{
+ - store : ArrayList<Product>
+ + save(product : Product): void
+ + findAll() : List<Product>
+ + findProduct(productId : UUID): Product
+
+}
+
+' ===========================
+'        DOMAIN LAYER
+' ===========================
+
+interface ImpactStrategyFactory {
+    + create(choice : String) : ImpactCalculationStrategy
+}
+
+class Product {
+    - id : int
+    - name : String
+    - materials : List<Material>
+    - category : Category
+    + Product(product_name : String, material : Material, duration : double, productId : UUID)
+    + addMaterial(material : Material) : void
+    + canAddMaterial(material : Material) : boolean 
+}
+
+class Material {
+    - name : String
+    - type : Type
+    - recyclingInstruction : String;
+    - impactValue : int
+
+     + Material(materialName : String, recyclingInstruction : String, type : Type, impactValue : double)
+}
+
+enum Category {
+    + PAPER_PACKAGING
+    + PLASTIC_PACKAGING
+    + ORGANIC_WASTE
+    + METAL_PACKAGING
+    + GLASS_PACKAGING
+    + SYNTHETIC_TEXTILES
+}
+
+enum Type {
+
+    - category : Category
+
+    + Type(category : Category)
+    + PAPER(PAPER_PACKAGING : Category)
+    + PLASTIC(PLASTIC_PACKAGING : Category)
+    + NATURAL_TEXTILE(ORGANIC_WASTE : Category)
+    + GLASS(GLASS_PACKAGING : Category) 
+    + METAL(METAL_PACKAGING : Category)
+    + SYNTETIC_TEXTILE(SYNTETIC_TEXTILES : Category)
+
+}
+
+interface ImpactCalculationStrategy {
+    + calculateImpact(product : Product, materialWeights : ArrayList<Double>) : double
+}
+
+interface MaterialRepository{
+  save(material : Material): void
+  findAll() : List<Material>
+  findMaterial(material_name : String ) : Material
+}
+
+interface ProductRepository{
+ store : ArrayList<Product>
+ save(product : Product): void
+ findAll() : List<Product>
+ findProduct(productId : UUID): Product
+
+}
+
+interface RecyclingGuidanceFactory {
+    +create(choice : Category) : RecyclingGuidance
+}
+
+class RecyclingGuidance {
+    - message : String
+    + RecyclingGuidance(message: String)
+}
+
+' ===========================
+'      APPLICATION LAYER
+' ===========================
+
+class MaterialService {
+    + repo1 : MaterialRepository
+
+    + MaterialService(repo1 : MaterialRepository)
+    + initMaterials() : void
+    + createMaterial(material_name : String, recycling_instruction : String, type : Type, impactValue : double) : void 
+    + listMaterials() : List<String>
+    + findMaterial(material_name : String) : Material 
+}
+
+class ProductService {
+    + repo : ProductRepository
+    + repo1 : MaterialRepository
+    + factory : ImpactStrategyFactory
+    + ProductService(repo : ProductRepository, repo1 : MaterialRepository, factory : ImpactStrategyFactory)
+    + createProduct(productId : UUID, product_name : String, material : Material, duration : double): void
+    + calculateImpact(productId : UUID, strategyNum : String, materialWeights : ArrayList<Double>) : ProvideImpactValueResult
+    + addMaterialtoProduct(productId : UUID, material : Material) : ArrayList<Material> 
+    + findAll() : List<Product>
+    + findProduct(productId : UUID): Product 
+    + retrieveProductDetails(productId : UUID) : RetrieveProductDetailsResult
+    + retrieveProductsList() : HashMap<UUID, String>
+}
+
+class RecyclingGuidanceService {
+    + guidanceFactory : RecyclingGuidanceFactory
+    + RecyclingGuidanceService(guidance : RecyclingGuidanceFactory)
+    + retrieveMessages(materials : ArrayList<Material>) : ArrayList<String>
+    + calculateCategory(materials : ArrayList<Material>) : Category 
+}
+
+class ApplicationService {
+    + serviceM : MaterialService
+    + serviceP : ProductService
+    + serviceR : RecyclingGuidanceService
+    + ApplicationService(serviceP : ProductService, serviceM : MaterialService, serviceR : RecyclingGuidanceService)
+    + createProduct(String productName, String materialName, double duration) : void 
+    + listProducts() : ListProductsResult
+    + displayProductDetails(productId_string : String) : DisplayProductDetailsResult 
+    + addMaterialtoProduct(material_name : String, productId_string : String) : void
+    + listPredefinedMaterials() : ListMaterialsResult
+    + assignCategoryToProduct(materials : ArrayList<Material>, product : Product) : void
+    + provideGuidance(productId_string : String) : ProvideGuidanceResult
+    + provideImpactValue(productId_string : String, strategyNum : String, materialWeights : ArrayList<Double>) : ProvideImpactValueResult 
+
+}
+
+class SimpleSumStrategy{
+ + calculateImpact(product : Product, materialWeights : ArrayList<Double>) : double
+}
+
+class WeightedSumStrategy{
+ + calculateImpact(product : Product, materialWeights : ArrayList<Double>) : double
+}
+
+class RetrieveProductDetailsResult{
+ - productName : String
+ - productId : UUID 
+ - category : String 
+ - productLifespanDuration : double 
+ - productMaterials : ArrayList<Material>
+ + RetrieveProductDetailsResult(productName : String, productId : UUID, category : String, productLifespanDuration : double, productMaterials : ArrayList<Material>) 
+}
+
+class DisplayProductDetailsResult{
+ - productName : String 
+ - productId : String 
+ - category : String
+ - productLifespanDuration : double
+ - materialNames : ArrayList<String> 
+
+ + DisplayProductDetailsResult(productName : String, productId : String, category : String, productLifespanDuration : double,  materialNames : ArrayList<String>)
+
+}
+
+class ProvideImpactValueResult{
+ - result : double
+ + ProvideImpactValueResult(result : double)
+}
+
+class ProvideGuidanceResult{
+ - messages : ArrayList<String>
+ + ProvideGuidanceResult(messages : ArrayList<String>)
+}
+
+class ListMaterialsResult{
+ - materialNames : List<String>
+ + ListMaterialsResult(materialNames : List<String>)
+}
+
+class ListProductsResult{
+ - productNamesAndUUIDs : HashMap<UUID, String> 
+ + ListProductsResult(productNamesAndUUIDs : HashMap<UUID, String>)
+
+}
+
+
+' ===========================
+'     PRESENTATION LAYER
+' ===========================
+
+class Menu {
+ - input : Scanner
+ - serviceApp : ApplicationService 
+ - formatter : OutputFormatter
+
+ + Menu(serviceApp : ApplicationService, input : Scanner, formatter : OutputFormatter)
+ + menuLoop() : void
+ + readInput() : String
+ + printOutput(string : String) : void
+}
+
+class OutputFormatter{
+ + printListMaterialsResult(result : ListMaterialsResult) : void
+ + printProvideGuidanceResult(result : ProvideGuidanceResult) : void 
+ + printImpactValueResult(result : ProvideImpactValueResult) : void
+ + printDisplayProductDetailsResult(result : DisplayProductDetailsResult) : void 
+ + printListProductsResult(result : ListProductsResult) : void
+}
+
+' ===========================
+'        DEPENDENCIES
+' ===========================
+
+Menu o-- ApplicationService : is part of
+Menu o-- OutputFormatter : is part of
+Menu --> DisplayProductDetailsResult : uses
+Menu --> ListMaterialsResult : uses
+Menu --> ListProductsResult : uses
+Menu --> ProvideGuidanceResult : uses
+Menu --> ProvideImpactValueResult : uses
+
+OutputFormatter --> ListMaterialsResult : uses
+OutputFormatter --> ListProductsResult : uses
+OutputFormatter --> ProvideGuidanceResult : uses
+OutputFormatter --> ProvideImpactValueResult : uses
+OutputFormatter --> DisplayProductDetailsResult : uses
+
+MaterialService o-- MaterialRepository : is part of
+MaterialService --> Type : uses
+MaterialService --> Material : uses
+
+ProductService o-- ProductRepository : is part of
+ProductService o-- MaterialRepository : is part of
+ProductService o-- ImpactStrategyFactory : is part of
+ProductService --> Product : uses
+ProductService --> Material : uses
+ProductService --> Category : uses
+
+ApplicationService o-- MaterialService : is part of
+ApplicationService o-- ProductService : is part of 
+ApplicationService o-- RecyclingGuidanceService : is part of
+ApplicationService --> Material : uses
+ApplicationService --> Product : uses
+ApplicationService --> ListProductsResult : uses
+ApplicationService --> ListMaterialsResult : uses
+ApplicationService --> RetrieveProductDetailsResult : uses
+ApplicationService --> ProvideGuidanceResult : uses
+ApplicationService --> ProvideImpactValueResult : uses
+
+RecyclingGuidanceService --> Category : uses
+RecyclingGuidanceService --> Material : uses
+RecyclingGuidanceService --> Type : uses
+RecyclingGuidanceService --> RecyclingGuidance : uses
+RecyclingGuidanceService o-- RecyclingGuidanceFactory : is part of
+
+Main --> Menu : uses
+Main --> In_memory_repository_product : uses
+Main --> In_memory_repository_material : uses
+Main --> MaterialService : uses
+Main --> ApplicationService : uses
+Main --> ProductService : uses
+Main --> ImpactStrategyFactory : uses
+Main --> OutputFormatter : uses
+
+RecyclingGuidanceFactory --> Category : uses
+RecyclingGuidanceFactory --> RecyclingGuidance : uses
+
+Type o-- Category : is part of
+Product o-- Material : is part of
+Product o-- Category : is part of
+Product *-- LIFESPAN : is part of
+Material o-- Type : is part of
+
+
+RecyclingGuidanceFactory <|.. DefaultRecyclingGuidanceFactory
+DefaultRecyclingGuidanceFactory --> Category : uses
+DefaultRecyclingGuidanceFactory --> RecyclingGuidance : uses
+
+ImpactStrategyFactory --> ImpactCalculationStrategy : uses
+ImpactStrategyFactory <|.. DefaultImpactStrategyFactory
+
+ImpactCalculationStrategy <|.. SimpleSumStrategy
+ImpactCalculationStrategy <|.. WeightedSumStrategy
+ImpactCalculationStrategy --> Product : uses
+
+WeightedSumStrategy --> Product : uses
+WeightedSumStrategy --> Material : uses
+
+SimpleSumStrategy --> Product : uses
+SimpleSumStrategy --> Material : uses
+
+DefaultImpactStrategyFactory --> ImpactCalculationStrategy : uses
+DefaultImpactStrategyFactory --> SimpleSumStrategy : uses
+DefaultImpactStrategyFactory --> WeightedSumStrategy : uses
+
+RetrieveProductDetailsResult o-- Material: is part of
+
+MaterialRepository <|.. In_memory_repository_material
+ProductRepository <|.. In_memory_repository_product
+
+In_memory_repository_product --> Product : uses
+In_memory_repository_material --> Material : uses
+@enduml
