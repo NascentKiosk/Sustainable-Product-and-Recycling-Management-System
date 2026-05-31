@@ -2,6 +2,7 @@ package com.mightyfour.application;
 
 import java.util.UUID;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.mightyfour.domain.Product;
 import com.mightyfour.domain.Material;
@@ -34,10 +35,10 @@ public class ApplicationService {
 
     }
     
-    public String listProducts(){
+    public ListProductsResult listProducts(){
 
-        String tempString = serviceP.retrieveProductsList();
-        return tempString; //dto object
+        HashMap<UUID, String> productNamesAndUUIDs = serviceP.retrieveProductsList();
+        return new ListProductsResult(productNamesAndUUIDs); 
 
     }
 
