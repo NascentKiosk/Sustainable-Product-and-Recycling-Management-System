@@ -3,6 +3,7 @@ package com.mightyfour.application;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import com.mightyfour.domain.Product;
 import com.mightyfour.domain.ImpactStrategyFactory;
 import com.mightyfour.domain.Material;
@@ -73,14 +74,15 @@ public class ProductService {
         return new RetrieveProductDetailsResult(productName, productId, product.getCategory().toString(), productLifespanDuration, productMaterials);
     }
 
-    public String retrieveProductsList(){
-        String temp_string = "";
+    public HashMap<UUID, String> retrieveProductsList(){
+        HashMap<UUID, String> productNamesAndUUIDs = new HashMap<>();
+
         for(Product product : repo.findAll()){
-            temp_string += "Name: " + product.getName() + "\n" + "ID: " + product.getId().toString() + "\n";
+            productNamesAndUUIDs.put(product.getId(), product.getName());
         }
 
 
-        return temp_string; //switch to dto object
+        return productNamesAndUUIDs; 
     }
 
 }
