@@ -1,0 +1,85 @@
+@startuml
+
+title Calculate Environmental Impact Flow
+
+actor User
+
+participant "menu : Menu" as Menu
+participant "serviceApp : ApplicationService" as AppService
+participant "serviceP : ProductService" as ProductService
+participant "factory : ImpactStrategyFactory" as Factory
+participant "strategy : ImpactCalculationStrategy" as Strategy
+
+User -> Menu : Select option 6
+activate Menu
+
+' STEP 2 - Product ID Input
+Menu -> Menu : readInput()
+Menu --> Menu : productId_string
+
+' STEP 3
+Menu -> AppService : displayProductDetails(productId)
+activate AppService
+
+' STEP 4
+AppService -> ProductService : displayProductDetails(productId)
+activate ProductService
+
+' STEP 5
+ProductService -> ProductService : repo.findProduct(productId)
+ProductService --> AppService : DisplayProductDetailsResult
+
+deactivate ProductService
+
+AppService --> Menu : DisplayProductDetailsResult
+deactivate AppService
+
+' STEP 6 - Material Weights Input
+loop For each material displayed
+    Menu -> Menu : readInput(weight)
+    Menu -> Menu : materialWeights.put(material, weight)
+end
+
+' STEP 7 - Strategy Selection
+Menu -> Menu : readInput()
+Menu --> Menu : strategyNum
+
+' STEP 8
+Menu -> AppService : provideImpactValue(productId,\nstrategyNum,\nmaterialWeights)
+activate AppService
+
+' STEP 9
+AppService -> ProductService : calculateImpact(productId,\nstrategyNum,\nmaterialWeights)
+activate ProductService
+
+' STEP 10
+ProductService -> Factory : create(strategyNum)
+activate Factory
+
+Factory --> ProductService : strategy
+deactivate Factory
+
+' STEP 11
+ProductService -> ProductService : repo.findProduct(productId)
+ProductService --> ProductService : product
+
+' STEP 12
+ProductService -> Strategy : calculateImpact(product,\nmaterialWeights)
+activate Strategy
+
+Strategy --> ProductService : impactValue
+deactivate Strategy
+
+' STEP 13
+ProductService --> AppService : ProvideImpactValueResult
+deactivate ProductService
+
+AppService --> Menu : ProvideImpactValueResult
+deactivate AppService
+
+' STEP 14
+Menu -> Menu : formatter.printImpactValueResult(result)
+
+deactivate Menu
+
+@enduml

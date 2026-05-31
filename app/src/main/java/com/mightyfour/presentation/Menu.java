@@ -1,6 +1,8 @@
 package com.mightyfour.presentation;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.ArrayList;
+
 import com.mightyfour.application.MaterialService;
 import com.mightyfour.application.ApplicationService;
 import com.mightyfour.application.DisplayProductDetailsResult;
@@ -100,7 +102,34 @@ public class Menu {
                     String productId = readInput();
                     printOutput("Enter 1 for simple sum strategy, or enter 2 for weighted sum strategy: ");
                     String strategyNum = readInput();
-                    ProvideImpactValueResult result = serviceApp.provideImpactValue(productId, strategyNum);
+        
+                    DisplayProductDetailsResult productDetails = serviceApp.displayProductDetails(productId);
+
+                    printOutput("Now enter weight contribution for each material: \n");
+
+                    ArrayList<Double> materialWeights = new ArrayList<>();
+
+
+                    for(String materialName : productDetails.getMaterialNames()) {
+                        
+                        boolean inputIsValid = false;
+                        while(!inputIsValid){
+                            printOutput("Enter weight for " + materialName + ": ");
+                            String userInput = readInput();
+                            try{
+                                double weight = Double.parseDouble(userInput);
+                                materialWeights.add(weight);
+                                inputIsValid = true;
+                            }
+                            catch(Exception e){
+                                printOutput("Error: Please enter a valid number.");
+                            }
+
+                        }
+                        
+                    }
+
+                    ProvideImpactValueResult result = serviceApp.provideImpactValue(productId, strategyNum, materialWeights);
                     formatter.printImpactValueResult(result);
             
                 }

@@ -2,14 +2,14 @@ package com.mightyfour.application;
 
 public class ProvideImpactValueResult {
 
-    private int result;
+    private double result;
 
-    public ProvideImpactValueResult(int result){
+    public ProvideImpactValueResult(double result){
         this.result = result;
     }
 
 
-    public int getResult(){
+    public double getResult(){
 
         return result;
     }
