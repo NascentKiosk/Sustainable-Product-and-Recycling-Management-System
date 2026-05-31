@@ -1,25 +1,22 @@
 
 ![CI](https://github.com/NascentKiosk/Sustainable-Product-and-Recycling-Management-System/actions/workflows/ci.yml/badge.svg)
 
-## Sustainable Product and Recycling Management System
+# Sustainable Product and Recycling Management System
 
----
-
-## 1.  Team Members & Roles
+## Initial documentation: 
+### 1.  Team Members & Roles
 
 * Timothy Juma – Testing & CI setup
 * Karla Kanizaj – Design patterns (impact calculation and recycling guidance), Product domain & services
 * Peniel Mensah – Architecture & UML diagrams
 * Jannatul Bushra – Material domain & services
 
-## 2. Project Overview
+### 2. Project Overview
 
 This project is a console-based application designed to support sustainable consumption and production (SDG 12). The system manages products and materials, calculates environmental impact using interchangeable strategies, and provides recycling guidance.  
 The focus is on object-oriented design, clean architecture, and testability.
 
----
-
-## 3. Objectives
+### 3. Objectives
 
 * Apply object-oriented design principles
 * Implement the Strategy pattern for impact calculation
@@ -27,17 +24,14 @@ The focus is on object-oriented design, clean architecture, and testability.
 * Ensure testability with unit tests
 * Use professional Git workflow and CI practices
 
----
-
-## 4. Core Features
+### 4. Core Features
 
 * Product management (create, list, view details)
 * Material management (define reusable materials)
 * Environmental impact calculation (multiple strategies)
 * Recycling guidance for single and mixed materials
 
----
-## 5. Technology Stack
+### 5. Technology Stack
 
 | Component | Technology |
 |-----------|------------|
@@ -47,16 +41,14 @@ The focus is on object-oriented design, clean architecture, and testability.
 | CI/CD | GitHub Actions |
 | Design Modeling | UML / PlantUML |
 
----
+### 6. Building the Project
 
-## 6. Building the Project
-
-### Prerequisites
+#### Prerequisites
 
 - Java 21 or later
 - Gradle 8+ (or Gradle Wrapper)
 
-### Build
+#### Build
 
 ```bash
 ./gradlew build
@@ -64,9 +56,7 @@ The focus is on object-oriented design, clean architecture, and testability.
 
 The build process compiles the application and executes all automated tests.
 
----
-
-## 7. Running the Application
+### 7. Running the Application
 
 ```bash
 ./gradlew run
@@ -74,13 +64,11 @@ The build process compiles the application and executes all automated tests.
 
 The application starts a console-based interface that allows users to manage products, materials, environmental impact calculations, and recycling guidance.
 
----
-
-## 8. Architectural Overview
+### 8. Architectural Overview
 
 The system follows a layered architecture to separate responsibilities and improve maintainability.
 
-### Presentation Layer
+#### Presentation Layer
 
 Responsible for user interaction.
 
@@ -96,7 +84,7 @@ Responsibilities:
 - Display output
 - Delegate business operations to services
 
-### Application Layer
+#### Application Layer
 
 Coordinates use cases and business workflows.
 
@@ -112,7 +100,7 @@ Responsibilities:
 - Validate requests
 - Coordinate domain objects
 
-### Domain Layer
+#### Domain Layer
 
 Contains core business rules and entities.
 
@@ -129,7 +117,7 @@ Responsibilities:
 - Domain validation
 - Environmental impact calculations
 
-### Infrastructure Layer
+#### Infrastructure Layer
 
 Provides technical implementations.
 
@@ -145,14 +133,13 @@ Responsibilities:
 - Repository implementations
 - External integrations
 
----
-## 9. Strategy Design Pattern
+### 9. Strategy Design Pattern
 
-### Purpose
+#### Purpose
 
 The Strategy Pattern allows the application to switch environmental impact calculation algorithms at runtime without changing the client code.
 
-### Strategy Interface
+#### Strategy Interface
 
 ```java
 ImpactCalculationStrategy
@@ -160,7 +147,7 @@ ImpactCalculationStrategy
 
 The interface defines the contract used by all environmental impact calculation algorithms.
 
-### Concrete Strategies
+#### Concrete Strategies
 
 Examples:
 
@@ -169,7 +156,7 @@ Examples:
 
 Each strategy implements a different environmental impact calculation method.
 
-### Factory Integration
+#### Factory Integration
 
 The project uses:
 
@@ -180,7 +167,7 @@ DefaultImpactStrategyFactory
 
 The factory selects and creates the appropriate strategy implementation.
 
-### Workflow
+#### Workflow
 
 1. User selects a calculation method.
 2. Factory creates the required strategy.
@@ -188,7 +175,7 @@ The factory selects and creates the appropriate strategy implementation.
 4. Strategy performs the calculation.
 5. Result is returned to the user.
 
-### Benefits
+#### Benefits
 
 - Open/Closed Principle compliance
 - Easy addition of new algorithms
@@ -196,25 +183,23 @@ The factory selects and creates the appropriate strategy implementation.
 - Improved maintainability
 - Better unit test coverage
 
----
+### 10. Design Principles Applied
 
-## 10. Design Principles Applied
+#### SOLID Principles
 
-### SOLID Principles
-
-#### Single Responsibility Principle
+##### Single Responsibility Principle
 
 Each class has a focused responsibility.
 
-#### Open/Closed Principle
+##### Open/Closed Principle
 
 New calculation strategies can be added without modifying existing services.
 
-#### Dependency Inversion Principle
+##### Dependency Inversion Principle
 
 Services depend on interfaces rather than concrete implementations.
 
-### Separation of Concerns
+##### Separation of Concerns
 
 The application separates:
 
@@ -223,49 +208,95 @@ The application separates:
 - Domain Rules
 - Data Access
 
----
+### 11. Diagrams
 
-## 11. Diagrams
-
-### 11. 1 UML Class Diagram
+#### 11. 1. Our Initial UML Class Diagram
 Location:
 
 ```text
-docs/requirements/conceptual_uml_class_diagram.png
+docs/requirements/UML_V2_noNotes.jpg.jpeg
 ```
 <br>
 <br>
 
-![My Image](./images/UML_V2_noNotes.jpg.jpeg)
+![My Image](docs/requirements/images/UML_V2_noNotes.jpg.jpeg)
 
-## Class and responsibilities sentences
----------------------------
+### 12. Class and responsibilities sentences
 
-### Product 
+
+#### Product 
 Represents a physical item in the recycling system, encapsulating its identity and composition. It owns its name, category, lifespan, and the list of materials it is made of. Product does not calculate impact or provide recycling guidance, it delegates those responsibilities to the appropriate services.
 
-### Material 
+#### Material 
 Is a reusable domain concept representing a physical substance and its environmental recyclability profile. It owns its name, impact value, and recycling category/instruction. Material does not calculate or derive anything, it simply exposes its properties for others to use.
 
-### ImpactCalculationStrategy 
+#### ImpactCalculationStrategy 
 Is a contract that defines interchangeable environmental impact calculation rules. It declares a single method for calculating the impact of a product based on its materials. It does not implement any logic itself, concrete classes implement and override this method to provide specific calculation strategies.
 
-### RecyclingGuide 
+#### RecyclingGuide 
 Is responsible for providing recycling guidance for single and mixed materials. It simply takes in an input in the form of material(s) and gives a recommendation or guidance in return. It does not handle user interaction or presentation concerns, those belong to the presentation layer.
 
-### Category 
+#### Category 
 Represents the classification of a material within the recycling domain. It owns a single descriptive value that identifies the material type. It has no identity of its own and does not perform any logic, it exists purely as an immutable data descriptor.
 
-### Lifespan 
+#### Lifespan 
 Represents the estimated durability of a product over time. It owns a single value expressing duration. It has no identity of its own and does not perform any logic, it exists purely as an immutable data descriptor attached to a Product.
 
-## Week 3: Design rationale
+### 13. Assumptions and Limitations
 
-### 11. 2 UML diagram V2
-<br>
+#### Assumptions
+
+- Products contain one or more materials.
+- Environmental impact calculations are strategy-driven.
+- Data is stored in memory unless persistence is added.
+
+#### Limitations
+
+- Console-based interface only.
+- No database persistence.
+- No authentication or authorization.
+
+### 14. Future Enhancements
+
+- Database integration
+- Web-based UI
+- REST API support
+- Additional impact calculation strategies
+- Reporting and analytics dashboard
+- Recycling compliance tracking
+
+### 15. Conclusion
+
+Our Sustainable Product and Recycling Management System should demonstrate clean software architecture, object-oriented design, use of the Strategy Pattern, automated testing, and maintainable development practices while addressing sustainability-focused business requirements.
+
+# Weekly milestones and deliverables
+
+## 1. Class and responsibilities sentences - Week 2
+
+### Product
+Represents a physical item in the recycling system, encapsulating its identity and composition. It owns its name, category, lifespan, and the list of materials it is made of. Product does not calculate impact or provide recycling guidance, it delegates those responsibilities to the appropriate services.
+
+### Material
+Is a reusable domain concept representing a physical substance and its environmental recyclability profile. It owns its name, impact value, and recycling category/instruction. Material does not calculate or derive anything, it simply exposes its properties for others to use.
+
+### ImpactCalculationStrategy
+Is a contract that defines interchangeable environmental impact calculation rules. It declares a single method for calculating the impact of a product based on its materials. It does not implement any logic itself, concrete classes implement and override this method to provide specific calculation strategies.
+
+### RecyclingGuide
+Is responsible for providing recycling guidance for single and mixed materials. It simply takes in an input in the form of material(s) and gives a recommendation or guidance in return. It does not handle user interaction or presentation concerns, those belong to the presentation layer.
+
+### Category
+Represents the classification of a material within the recycling domain. It owns a single descriptive value that identifies the material type. It has no identity of its own and does not perform any logic, it exists purely as an immutable data descriptor.
+
+### Lifespan
+Represents the estimated durability of a product over time. It owns a single value expressing duration. It has no identity of its own and does not perform any logic, it exists purely as an immutable data descriptor attached to a Product.
+
+## 2. Design rationale - Week 3
+
+### 2.1. Updated UML Class Diagram
 <br>
 
-![My Image](./images/UML_V3.jpeg)
+![My Image](docs/requirements/images/UML_V3.jpeg)
 
 Association relationship between Product class and ProductApplicationService has been reversed, now the relationship indicates that ProductApplicationService uses instances of Product. Keep in mind that while not defined, the relationship between ProductApplicationService class and Product class is also a usage dependency relationship and a creation dependency relationship.
 
@@ -288,12 +319,12 @@ Additionally, on Lecture 3 slides, page 20, there are examples for each protocol
 3. The application depends on the ImpactCalculationStrategy interface, not any concrete implementation (satisfies DIP).
 
 
-## 12. Explanation of architectural decisions
+## 3. Explanation of architectural decisions - Week 4
 
 <br>
 <br>
 
-![My Image](./images/walking_skeleton_file_image.jpg)
+![My Image](docs/requirements/images/walking_skeleton_file_image.jpg)
 ### 1.
 #### domain/
 Category.java,<br> 
@@ -319,7 +350,9 @@ In_memory_repository_material.java <br>
 
 #### Our composition root -> Main.java
 
-### 2.	ImpactCalculationStrategy interface 
+### 2.	
+
+#### ImpactCalculationStrategy interface 
 Impacts our business rules, and since it does, it belongs in the domain layer. If a class/interface contains business rules (calculates impact of product), the result of what we are trying to achieve is usually affected (the impact value of product will change depending on which implemented class we decide to inject into ProductApplicationService) and the way the result is reached is affected (we are likely going to do calculations with different fields/attributes to achieve different values).
 
 ####  Material_repository & Product_repository interface 
@@ -327,7 +360,9 @@ Repository interfaces; part of domain, implemented in infrastructure. Thanks to 
 
 
 
-### 3.	Dependency direction of ImpactCalculationStrategy 
+### 3.	
+
+#### Dependency direction of ImpactCalculationStrategy 
 ProductApplicationService receives an ImpactCalculationStrategy via its constructor — this is an example of constructor injection. This way we are also respecting the dependency inversion of Application layer depending on Domain layer, as an interface belongs to the caller (in this case Domain layer) and not implementer (in our case Application layer). 
 
 #### Dependency direction of Material_repository 
@@ -336,10 +371,7 @@ MaterialService receives an Material_repository via its constructor (constructor
 #### Dependency direction of Product_repository 
 ProductApplicationService receives a Product_repository via its constructor (constructor injection). Respects the dependency inversion: Application layer depends on Domain layer, as an interface belongs to the caller (in this case Domain layer) and not implementer (in our case Infrastructure layer). 
 
-## Week 5 - Console UI and Separation of Concerns
-No required deliverables for documentation other than the code.
-
-## Week 6 - Code Review & Design Refinement
+## 4. Code Review & Design Refinement - Week 6 
 
 Unfortunately, it was difficult to pinpoint exactly who worked on each implementation detail, as up until this point we have had our development process mostly in our Whatsapp group and meetings on GoogleMeet. However, we had been working together, splitting up when needed to help implement a functionality to our program as soon as possible. Once the transfer of our latest code is added to our Github repository, we will continue working through Github codespaces. For this week’s deliverables, we have focused on refactoring changes that need to happen in both versions of our code (the one uploaded to Github), and the latest version of the code that we have posted in the Whatsapp group.  
 
@@ -354,13 +386,6 @@ Timothy: Not Completely. Classes like CreateProductResult, DisplayProductDetails
 Karla: Only MaterialService violates SRP, as its responsibilities are now too many. In listMaterials(), it formats information before returning it and the class itself is otherwise responsible for containing methods which handle Material objects (and need access to the material repository).
 
 Bushra: Most classes follow the Single Responsibility Principle well. Result classes such as ProvideGuidanceResult, CreateProductResult, ListProductsResult, and DisplayProductDetailsResult are only responsible for transferring data between layers and do not contain business logic. ProductService is mainly responsible for product-related operations such as creating products, finding products, and adding materials to products.  ApplicationService now acts mostly as an orchestration layer between services, which is an improvement compared to the previous structure. However, it still contains some data conversion responsibilities that could later be moved into separate mapper or presenter classes.
-
-### What to refactor for this week - group conclusion: 
-
-Classes like CreateProductResult, DisplayProductDetailsResult and ProvideGuidanceResult do not contain business logic, and they are considered to be Data Transfer Objects (DTOs). Their only responsibility is to transfer data between the application layer and the presentation layer, hence they do not violate SRP. MaterialService violates SRP in listMaterials(), since it contains presentation layer formatting. We have decided to do a refactor for this method, where we will add a DTO object between MaterialService class and Menu class. When it comes to ApplicationService dealing with conversions such as converting String to UUID value or from UUID value to String, these are the reasons behind why they exist in the implementation of our program:
-The unique identifier of each Product object is its ID. 
-in order for the user to refer to a certain Product, they would need to input its id value, which would first be a String that gets converted to a UUID.
-In order for ApplicationService to pass values to DTO objects, Product IDs are converted from UUID value to String form, which helps avoid making DTO objects unnecessarily depend on the UUID class.
 
 #### Are method names specific enough to describe a single action?
 
@@ -408,7 +433,14 @@ Group conclusion: Yes. Scanner is only used in the presentation layer (and in in
 
 Group conclusion: No. There are no static utility calls, no printing, and no random behavior inside the domain or service classes. The code relies mainly on service collaboration and repository access rather than hidden static dependencies. This keeps the code predictable and easy to test.
 
-## Week 7 - Design patterns
+### What to refactor for this week - group conclusion: 
+
+Classes like CreateProductResult, DisplayProductDetailsResult and ProvideGuidanceResult do not contain business logic, and they are considered to be Data Transfer Objects (DTOs). Their only responsibility is to transfer data between the application layer and the presentation layer, hence they do not violate SRP. MaterialService violates SRP in listMaterials(), since it contains presentation layer formatting. We have decided to do a refactor for this method, where we will add a DTO object between MaterialService class and Menu class. When it comes to ApplicationService dealing with conversions such as converting String to UUID value or from UUID value to String, these are the reasons behind why they exist in the implementation of our program:
+The unique identifier of each Product object is its ID. 
+in order for the user to refer to a certain Product, they would need to input its id value, which would first be a String that gets converted to a UUID.
+In order for ApplicationService to pass values to DTO objects, Product IDs are converted from UUID value to String form, which helps avoid making DTO objects unnecessarily depend on the UUID class.
+
+## 5. Design patterns - Week 7 
 
 ### Strategy Pattern
 
@@ -422,39 +454,37 @@ and Weighted Sum Strategy. Each class represents a different algorithm for calcu
 
 Because we have applied a Factory pattern to our program, we reduce the amount of code that we will need to modify, therefore most classes will remain untouched (which respects OCP). In the future, if we decide to implement a new ImpactCalculationStrategy class, the only changes necessary will be adding a new class, updating DefaultImpactStrategyFactory class, and updating Menu class in order to communicate to user which calculation strategies are available. The user selects which strategy will be used once they enter 6 in reference to the available options in menuLoop(). The pattern was appropriate in order to successfully implement the workflow for option 6 (calculate impact value of a Product object). We needed to find a way/pattern that would help us keep presentation layer concerns and concerns of other layers separate. As we have two different implementations of ImpactCalculationStrategy that we are going to use interchangeably, one centralized creation point makes the code cleaner. Now all instances of classes that implement ImpactCalculationStrategy are instantiated in the same place (class) and therefore convenient to understand, which means the construction logic is centralized and creation rules are easier to modify. Additionally, all instances of classes that implement ImpactCalculationStrategy are created by calling the same method. This improves SRP and ensures that we do not have multiple creation statements for the same object in different places of our program, which means that the Factory pattern has helped us reduce duplication in our program. Menu knows nothing about ImpactStrategyFactory, SimpleSumStrategy or WeightedSumStrategy, it only passes productId and strategy choice in string form to ApplicationService. Thanks to the Factory pattern, UI classes successfully stay decoupled from concrete types. Without the factory pattern, creation logic would be mixed with UI flow, which weakens the respect for SRP in our program.
 
-## Week 10 - Sequence Diagram and Documentation
+## 6. Sequence Diagram - Week 10 
 This project includes a sequence diagram for the “Calculate Environmental Impact” use case.
 The diagram demonstrates how the Presentation layer (`Menu`) communicates with the Application layer (`ApplicationService` and `ProductService`) and finally the Domain layer (`Product`).
 The sequence diagram was created directly from the Java implementation to ensure that every lifeline and method call matches the code exactly.
 The diagram also models iteration behaviour using a UML `loop` fragment as required in Week 10.
 
-### 13.1  Sequence Diagram 
+### 6.1.  Sequence Diagram 
 
-![Sequence Diagram](docs/sequence-diagram.png)
+![Sequence Diagram](docs/requirements/images/sequence-diagram.png)
 
-### 13.2 Sequence Diagram Walkthrough for Calculating Environmental Impact
+### 6.2. Sequence Diagram Walkthrough for Calculating Environmental Impact
 
-# Sequence Diagram Walkthrough for Calculating Environmental Impact
+#### STEP 1 – User Starts Menu Interaction
 
-## #STEP 1 – User Starts Menu Interaction
-
-### File Location
+##### File Location
 
 `app/src/main/java/com/mightyfour/presentation/Menu.java`
 
-### Method
+##### Method
 
 ```java
 public void menuLoop()
 ```
 
-### What Happens
+##### What Happens
 
 * Displays menu options
 * Reads user input
 * Routes functionality
 
-### Matching Code
+##### Matching Code
 
 ```java
 user_input = readInput();
@@ -466,111 +496,111 @@ and
 if(user_input.equals("6"))
 ```
 
-### Explanation
+##### Explanation
 
 This is the entry point for the environmental impact use case. When the user selects option 6, the Menu class begins the environmental impact workflow.
 
 ---
 
-### STEP 2 – Product ID Input
+#### STEP 2 – Product ID Input
 
-### File Location
+##### File Location
 
 `presentation/Menu.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 printOutput("Please enter product ID: ");
 String productId_string = readInput();
 ```
 
-### Explanation
+##### Explanation
 
 The Menu prompts the user for a product identifier. This identifier will be used to retrieve the selected product.
 
 ---
 
-### STEP 3 – Menu Requests Product Details
+#### STEP 3 – Menu Requests Product Details
 
-### File Location
+##### File Location
 
 `presentation/Menu.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 DisplayProductDetailsResult productDetails =
     serviceApp.displayProductDetails(productId);
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 Menu -> AppService : displayProductDetails(productId)
 ```
 
-### Explanation
+##### Explanation
 
 Before calculating environmental impact, the Menu requests product details from the Application layer. This allows the UI to display the materials contained in the selected product so that the user can provide material weights.
 
 ---
 
-### STEP 4 – ApplicationService Retrieves Product Details
+#### STEP 4 – ApplicationService Retrieves Product Details
 
-### File Location
+##### File Location
 
 `application/ApplicationService.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 return serviceP.displayProductDetails(productId);
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 AppService -> ProductService : displayProductDetails(productId)
 ```
 
-### Explanation
+##### Explanation
 
 ApplicationService forwards the request to ProductService, maintaining the layered architecture.
 
 ---
 
-### STEP 5 – Product Retrieved From Repository
+#### STEP 5 – Product Retrieved From Repository
 
-### File Location
+##### File Location
 
 `application/ProductService.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 repo.findProduct(productId)
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 ProductService -> ProductService : repo.findProduct(productId)
 ```
 
-### Explanation
+##### Explanation
 
 The ProductService retrieves the product so that its materials can be displayed to the user.
 
 ---
 
-### STEP 6 – Material Weights Input
+#### STEP 6 – Material Weights Input
 
-### File Location
+##### File Location
 
 `presentation/Menu.java`
 
-### Matching Code
+##### Matching Code
 
 The Menu collects weights for the materials displayed from the product details.
 
@@ -580,38 +610,38 @@ Example:
 materialWeights.put(materialName, weight);
 ```
 
-### Explanation
+##### Explanation
 
 The user enters weight values corresponding to the materials in the selected product.
 
 ---
 
-### STEP 7 – Strategy Selection
+#### STEP 7 – Strategy Selection
 
-### File Location
+##### File Location
 
 `presentation/Menu.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 printOutput("Please choose strategy: ");
 String strategyNum = readInput();
 ```
 
-### Explanation
+##### Explanation
 
 The user selects the impact calculation strategy.
 
 ---
 
-### STEP 8 – Menu Delegates Impact Calculation
+#### STEP 8 – Menu Delegates Impact Calculation
 
-### File Location
+##### File Location
 
 `presentation/Menu.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 ProvideImpactValueResult result =
@@ -622,26 +652,26 @@ ProvideImpactValueResult result =
     );
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 Menu -> AppService :
 provideImpactValue(productId, strategyNum, materialWeights)
 ```
 
-### Explanation
+##### Explanation
 
 The Presentation layer delegates the calculation request to the Application layer.
 
 ---
 
-### STEP 9 – ApplicationService Delegates to ProductService
+#### STEP 9 – ApplicationService Delegates to ProductService
 
-### File Location
+##### File Location
 
 `application/ApplicationService.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 return serviceP.calculateImpact(
@@ -651,70 +681,70 @@ return serviceP.calculateImpact(
 );
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 AppService -> ProductService :
 calculateImpact(productId, strategyNum, materialWeights)
 ```
 
-### Explanation
+##### Explanation
 
 ApplicationService coordinates the workflow and forwards the request to ProductService.
 
 ---
 
-### STEP 10 – ProductService Uses Factory
+#### STEP 10 – ProductService Uses Factory
 
-### File Location
+##### File Location
 
 `application/ProductService.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 factory.create(strategyNum)
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 ProductService -> Factory : create(strategyNum)
 ```
 
-### Explanation
+##### Explanation
 
 The factory selects the appropriate environmental impact calculation strategy.
 
 ---
 
-### STEP 11 – Product Retrieved For Calculation
+#### STEP 11 – Product Retrieved For Calculation
 
-### File Location
+##### File Location
 
 `application/ProductService.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 repo.findProduct(productId)
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 ProductService -> ProductService : repo.findProduct(productId)
 ```
 
-### Explanation
+##### Explanation
 
 The ProductService retrieves the product before passing it to the selected strategy.
 
 ---
 
-### STEP 12 – Strategy Calculates Impact
+#### STEP 12 – Strategy Calculates Impact
 
-### Matching Code
+##### Matching Code
 
 ```java
 (factory.create(strategyNum))
@@ -724,109 +754,75 @@ The ProductService retrieves the product before passing it to the selected strat
     );
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 ProductService -> Strategy :
 calculateImpact(product, materialWeights)
 ```
 
-### Explanation
+##### Explanation
 
 The selected strategy performs the environmental impact calculation using the product information and user-provided material weights.
 
 ---
 
-### STEP 13 – Result Returned
+#### STEP 13 – Result Returned
 
-### File Location
+##### File Location
 
 `application/ProductService.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 return new ProvideImpactValueResult(result);
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 ProductService --> AppService :
 ProvideImpactValueResult
 ```
 
-### Explanation
+##### Explanation
 
 The calculated impact value is wrapped in a result object and returned.
 
 ---
 
-### STEP 14 – Menu Displays Result
+#### STEP 14 – Menu Displays Result
 
-### File Location
+##### File Location
 
 `presentation/Menu.java`
 
-### Matching Code
+##### Matching Code
 
 ```java
 formatter.printImpactValueResult(result);
 ```
 
-### UML Arrow
+##### UML Arrow
 
 ```text
 Menu -> Menu :
 formatter.printImpactValueResult(result)
 ```
 
-### Explanation
+##### Explanation
 
 The Presentation layer displays the final environmental impact value to the user.
 
 
+## 7. Final UML Diagram - Week 12
+
+### 7.1. Latest version of our UML diagram 
+![Sequence Diagram](docs/requirements/images/Week13ClassDiagram.png)
 
 
-## 14. Assumptions and Limitations
-
-### Assumptions
-
-- Products contain one or more materials.
-- Environmental impact calculations are strategy-driven.
-- Data is stored in memory unless persistence is added.
-
-### Limitations
-
-- Console-based interface only.
-- No database persistence.
-- No authentication or authorization.
-
----
-
-## 15. Future Enhancements
-
-- Database integration
-- Web-based UI
-- REST API support
-- Additional impact calculation strategies
-- Reporting and analytics dashboard
-- Recycling compliance tracking
-
----
-### 16 Final Uml Diagram
-
-![Sequence Diagram](docs/finaluml.png)
-
----
-
-## 17. Conclusion
-
-The Sustainable Product and Recycling Management System demonstrates clean software architecture, object-oriented design, use of the Strategy Pattern, automated testing, and maintainable development practices while addressing sustainability-focused business requirements.
-
-
-
-## Week 12: Reflection
+## 8. Reflection - Week 13
 
 When we look back at how this project started, it honestly feels like we were just trying to get things to work. Architecture, patterns, layering, and clean design principles all felt abstract in the beginning. But as the codebase grew, we started to see why these things matter. This reflection is us being honest about what we learned, what we struggled with, and how our design evolved. Layered Architecture Our architecture did not appear perfectly from day one. It evolved commit by commit. Early on, we followed the UML from week 4, which already hinted at a layered structure. But the real understanding came later, when things started breaking. We eventually settled into four clear layers: 
 
