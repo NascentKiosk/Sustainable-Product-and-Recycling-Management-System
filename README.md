@@ -7,10 +7,10 @@
 
 ## 1.  Team Members & Roles
 
-* Timothy Juma – Material domain & services
-* Karla Kanizaj – Impact calculation strategies
+* Timothy Juma – Testing & CI setup
+* Karla Kanizaj – Design patterns (impact calculation and recycling guidance), Product domain & services
 * Peniel Mensah – Architecture & UML diagrams
-* Jannatul Bushra – Testing & CI setup
+* Jannatul Bushra – Material domain & services
 
 ## 2. Project Overview
 
