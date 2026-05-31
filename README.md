@@ -453,18 +453,36 @@ and Weighted Sum Strategy. Each class represents a different algorithm for calcu
 ### Factory Pattern
 
 Because we have applied a Factory pattern to our program, we reduce the amount of code that we will need to modify, therefore most classes will remain untouched (which respects OCP). In the future, if we decide to implement a new ImpactCalculationStrategy class, the only changes necessary will be adding a new class, updating DefaultImpactStrategyFactory class, and updating Menu class in order to communicate to user which calculation strategies are available. The user selects which strategy will be used once they enter 6 in reference to the available options in menuLoop(). The pattern was appropriate in order to successfully implement the workflow for option 6 (calculate impact value of a Product object). We needed to find a way/pattern that would help us keep presentation layer concerns and concerns of other layers separate. As we have two different implementations of ImpactCalculationStrategy that we are going to use interchangeably, one centralized creation point makes the code cleaner. Now all instances of classes that implement ImpactCalculationStrategy are instantiated in the same place (class) and therefore convenient to understand, which means the construction logic is centralized and creation rules are easier to modify. Additionally, all instances of classes that implement ImpactCalculationStrategy are created by calling the same method. This improves SRP and ensures that we do not have multiple creation statements for the same object in different places of our program, which means that the Factory pattern has helped us reduce duplication in our program. Menu knows nothing about ImpactStrategyFactory, SimpleSumStrategy or WeightedSumStrategy, it only passes productId and strategy choice in string form to ApplicationService. Thanks to the Factory pattern, UI classes successfully stay decoupled from concrete types. Without the factory pattern, creation logic would be mixed with UI flow, which weakens the respect for SRP in our program.
+## 6. Refactoring with a safety net - Week 9
 
-## 6. Sequence Diagram - Week 10 
+### The refactor of this week:
+refactor: Move formatting from ProductService.retrieveProductsList() to presentation layer (SRP fix) - Pull request #109
+
+### Short summary: 
+
+With this change, we have decided to add a new class ListProductsResult to the application layer.
+<br>
+<br>
+The reason for this change was to allow ProductService class to not concern itself with the formatting. Our issue was precisely that the method retrieveProductsList() in ProductService class was building a formatted string by adding product id and name for each product stored in the repository, and the smoothest and most straightforward solution without breaking the architecture of our program was to introduce a DTO object. The intention is that an instance of ListProductsResult class now carries a HashMap with product ids and product names to the presentation layer, which enables the OutputFormatter class to prepare and display the information to user.
+The constructor method only has a HashMap of product ids and product names as a parameter, and the class only contains a HashMap of product ids and product names as a private field. The idea is that the OutputFormatter class extracts the information about product ids and names from the HashMap, using ListProductsResult.getProductNamesAndUUIDs().
+
+Additionally, we have updated ApplicationService.listProducts() to return an instance of ListProductsResult instead of an already formatted string.
+
+To accomodate this change, Menu.menuLoop() retrieves an instance of ListProductsResult and forwards it to OutputFormatter class.
+
+Finally, we have updated OutputFormatter class. We have added printListProductsResult(). The method extracts product ids and product names from an instance of ListProductsResult, then takes care of the formatting for showcase to user. This means that the ProductService can now add raw values of product id and name to HashMap, then return it to ApplicationService class instead of formatted string. This results in a cleaner division of concerns.
+
+## 7. Sequence Diagram - Week 10 
 This project includes a sequence diagram for the “Calculate Environmental Impact” use case.
 The diagram demonstrates how the Presentation layer (`Menu`) communicates with the Application layer (`ApplicationService` and `ProductService`) and finally the Domain layer (`Product`).
 The sequence diagram was created directly from the Java implementation to ensure that every lifeline and method call matches the code exactly.
 The diagram also models iteration behaviour using a UML `loop` fragment as required in Week 10.
 
-### 6.1.  Sequence Diagram 
+### 7.1.  Sequence Diagram 
 
 ![Sequence Diagram](docs/requirements/images/sequence-diagram.png)
 
-### 6.2. Sequence Diagram Walkthrough for Calculating Environmental Impact
+### 7.2. Sequence Diagram Walkthrough for Calculating Environmental Impact
 
 #### STEP 1 – User Starts Menu Interaction
 
@@ -816,13 +834,13 @@ formatter.printImpactValueResult(result)
 The Presentation layer displays the final environmental impact value to the user.
 
 
-## 7. Final UML Diagram - Week 12
+## 8. Final UML Diagram - Week 12
 
-### 7.1. Latest version of our UML diagram 
+### 8.1. Latest version of our UML diagram 
 ![Sequence Diagram](docs/requirements/images/Week13ClassDiagram.png)
 
 
-## 8. Reflection - Week 13
+## 9. Reflection - Week 13
 
 When we look back at how this project started, it honestly feels like we were just trying to get things to work. Architecture, patterns, layering, and clean design principles all felt abstract in the beginning. But as the codebase grew, we started to see why these things matter. This reflection is us being honest about what we learned, what we struggled with, and how our design evolved. Layered Architecture Our architecture did not appear perfectly from day one. It evolved commit by commit. Early on, we followed the UML from week 4, which already hinted at a layered structure. But the real understanding came later, when things started breaking. We eventually settled into four clear layers: 
 
